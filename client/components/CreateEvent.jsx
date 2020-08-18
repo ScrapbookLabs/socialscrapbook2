@@ -70,6 +70,11 @@ export default function CreateEvent({ addEvent }) {
               <Form.Control name='eventdetails' onChange={handleChange} required as="textarea" placeholder="Enter description" />
             </Form.Group>
 
+            <Form.Group controlId="formEventPhoto"> 
+              <Form.Label>Event Photo</Form.Label> 
+              <Form.Control name='photo' type='file' />
+            </Form.Group>
+
             <Form.Group controlId="formEventDescription">
               <Form.Label>Start Date & Time</Form.Label>
               <DateTimePicker
