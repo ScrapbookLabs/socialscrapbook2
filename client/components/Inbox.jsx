@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from "react";
 
 export default function Inbox(props) {
-    // "eventsFetchRes" is dummy for fetch to the pending events table 
+    // "eventsFetchRes" is dummy for get fetch to the pending events table 
     const eventsFetchRes = ['event1', 'event2', 'event3']
+    
+    let eventResponse;
+    const inviteRes = (response) => {
+    // post fetch to database with req.body containing event details and req.body.response = 'response' 
+    }
+
+    const handleClickAttend = () => {
+        eventResponse = 'yes';
+        inviteRes(eventResponse);
+    }
+
+    const handleClickDecline = () => {
+        eventResponse = 'no';
+        inviteRes(eventResponse);
+    }
+    
     if (!eventsFetchRes) {
         return (
             <div>
@@ -12,15 +28,21 @@ export default function Inbox(props) {
     } else {
         const eventList = eventsFetchRes.map((el)=>{
             return (
-                <div>
-                    <span>add event photo</span>
-                    <span>Event Name: </span>
-                    <span>{el}</span>
+                <div className='inboxItem'>
+                    <span className='inboxItemPhoto'>add event photo</span>
+                    <span className='inboxItemEventNameTitle'>Event Name: </span>
+                    <span className='inboxItemEventName'>{el}</span>
+                    <span>
+                        <button clasName="inboxSubmitAttend" onClick={handleClickAttend}>Attend</button>
+                    </span>
+                    <span>
+                        <button clasName="inboxSubmitDecline" onClick={handleClickDecline}>Decline</button>
+                    </span>
                 </div>
             )
         })
         return (
-            <div>
+            <div className='inboxContainer'>
                 {eventList}
             </div>
         )
