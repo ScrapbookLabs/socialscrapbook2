@@ -5,8 +5,8 @@ const loginController = {};
 loginController.oAuth = async (req, res, next) => {
 
     const oauth2Client = new google.auth.OAuth2(
-        '559739375459-cg35egmegke4g3b3cbi66ria81b66nro.apps.googleusercontent.com',
-        '35JN7BXlmbYPTurgXFGwQWSA',
+        '1044493719740-9ljvllb77dqr2tjhkcj55d54ec3po465.apps.googleusercontent.com',
+        'XmT_P0pI9WBss35cvjMMJq8u',
         'http://localhost:3000/api/login/google'
     );
 
@@ -30,8 +30,8 @@ loginController.oAuth = async (req, res, next) => {
 loginController.afterConsent = (req, res, next) => {
 
     const oauth2Client = new google.auth.OAuth2(
-        '559739375459-cg35egmegke4g3b3cbi66ria81b66nro.apps.googleusercontent.com',
-        '35JN7BXlmbYPTurgXFGwQWSA',
+        '1044493719740-9ljvllb77dqr2tjhkcj55d54ec3po465.apps.googleusercontent.com',
+        'XmT_P0pI9WBss35cvjMMJq8u',
         'http://localhost:3000/api/login/google'
     );
     
