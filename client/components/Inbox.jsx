@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 export default function Inbox(props) {
-    // "eventsFetchRes" is dummy for get fetch to the pending events table 
+    // "eventsFetchRes" is dummy for 'get' fetch to the pending events table 
     const eventsFetchRes = ['event1', 'event2', 'event3']
     
     let eventResponse;
     const inviteRes = (response) => {
-    // post fetch to database with req.body containing event details and req.body.response = 'response' 
+    // 'post' fetch to database with req.body containing event details and req.body.response = 'response' 
     }
 
     const handleClickAttend = () => {
