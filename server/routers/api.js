@@ -54,7 +54,7 @@ router.get('/info',
 router.use('/logout', // SWITCH THIS TO POST REQUEST!!
   cookieController.removeCookie,
   (req, res) => {
-    return res.status(200).json('Successful logout.');
+    return res.redirect('/');
   });
 
 // CREATE A NEW EVENT
