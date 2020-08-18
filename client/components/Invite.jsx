@@ -9,6 +9,7 @@ export default function Invite(props) {
 
     const handleClickInvite = () =>{
     // send a 'post' fetch to the server with req.body containing the friend name 
+    // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
     }
 
     const friendsList = friendsFetchRes.map((el)=>{
