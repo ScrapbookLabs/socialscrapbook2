@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faFeatherAlt, faInbox } from '@fortawesome/free-solid-svg-icons'
 import Inbox from './Inbox.jsx'
-import Invite from './Invite.jsx'
 
 
 export default function OurNavbar({ loggedIn, profilePhoto }) {
@@ -16,11 +15,6 @@ export default function OurNavbar({ loggedIn, profilePhoto }) {
    setInbox(!inbox);
   }
 
-  // testing to make sure Modal works
-  const [invite, setInvite] = useState(false);
-  const handleClickInvite = () => {
-    setInvite(!invite);
-  }
 
   return (
   <Navbar expand="lg" className="myNavbar justify-content-between">
@@ -41,7 +35,6 @@ export default function OurNavbar({ loggedIn, profilePhoto }) {
           <a href="/api/logout"><Button className="navButton" variant="outline-primary">Logout</Button></a>
       </Nav.Item>}
       {inbox && <Inbox />}
-      {invite && <Invite />}
     </Nav>
   </Navbar>
   )
