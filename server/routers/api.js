@@ -85,4 +85,45 @@ router.get('/events', // SWITCH THIS TO A GET REQUEST!!
   }
 )
 
+// UPLOAD A PHOTO TO CLOUDINARY API
+
+router.post('/photo', async (req, res, next) => {
+  try {
+    const fileStr = req.body.data;
+    const { eventtitle } = req.body;
+
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, { upload_preset: 'social_scrapbook_2', public_id: `${eventtitle}`});
+
+    return res.status(200).json(uploadedResponse)
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({msg: 'Photo upload went wrong in api router middleware!'})
+  }
+})
+
+// FETCH SPECIFIC PHOTO FROM CLOUDINARY API
+
+router.get('/photo', async (req, res, next) => {
+  const eventtitle = req.query.title;
+  const { resources } = await cloudinary.search
+    .expression(`public_id: social_scrapbook_2/${eventtitle}`)
+    .execute();
+
+  res.status(200).json(resources[0]);
+})
+
+// FETCH ALL PHOTOS FROM CLOUDINARY API
+
+router.get('/allphotos', async (req, res, next) => {
+  const { resources } = await cloudinary.search
+    .expression('folder: social_scrapbook_2')
+    .sort_by('public_id', 'desc')
+    .max_results(30)
+    .execute();
+  const publicIds = resources.map(file => file.public_id);
+
+  res.status(200).json({ ids: publicIds });
+})
+
+
 module.exports = router;
