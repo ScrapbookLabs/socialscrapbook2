@@ -13,14 +13,14 @@ export default function Event(props) {
   const [eventpic, setEventpic] = useState('');
   const [inviteView, setInviteView] = useState(false)
 
-  useEffect(() => {
-    axios.get(`/api/photo?title=${props.eventtitle}`)
-      .then((res) => {
-        if (res.data) {
-          setEventpic(res.data.url);
-        }
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.get(`/api/photo?title=${props.eventtitle}`)
+  //     .then((res) => {
+  //       if (res.data) {
+  //         setEventpic(res.data.url);
+  //       }
+  //   })
+  // }, [])
 
   const handleClickInvite = () => {
     setInviteView(!inviteView)

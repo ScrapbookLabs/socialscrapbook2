@@ -9,7 +9,7 @@ export default function CoverPhoto(props) {
 
   return (
     <div className="coverPhoto">
-      <img src={props.eventpic} alt="eventpic" />
+      {/* <img src={props.eventpic} alt="eventpic" /> */}
     </div>
   );
 }
