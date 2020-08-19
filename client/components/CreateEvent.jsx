@@ -37,9 +37,44 @@ export default function CreateEvent({ addEvent }) {
     let time = dateTime.toTimeString();
     let eventstarttime = time.split(" ")[0];
     // ... submit to API or something
-    addEvent({ ...formData, eventdate, eventstarttime });
+    addEvent({ ...formData, eventdate, eventstarttime, eventpic: previewSource });
+    
     handleClose();
   };
+
+  const handlePhoto = (e) => {
+    const file = e.target.files[0];
+    // previewFile(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    }
+  }
+
+  // const previewFile = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreviewSource(reader.result);
+  //   }
+  // }
+
+
+  const uploadImage = async (base64EncodedImage) => {
+    try {
+      await fetch('/api/photo', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage, eventtitle: formData.eventtitle}),
+        headers: { 
+          'Content-Type': 'application/json' 
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
