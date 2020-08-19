@@ -7,7 +7,7 @@ body {
 .myNavbar {
   // width: 90%;
   background-color: rgb(129, 216, 208);
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
 }
 
 .navButton {
@@ -19,6 +19,24 @@ body {
   font-family: 'Dancing Script', cursive;
   font-size: 40px;
   margin-bottom: 10px;
+}
+
+.myNavbar img {
+  border-radius: 4px;
+  width: 38px;
+}
+
+.myNavbar .inboxIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.inboxIconSvg {
+  font-size: 1em;
+  color: white;
 }
 
 .col {
@@ -44,12 +62,6 @@ body {
   box-shadow: 1px 1px 2px 1px rgb(129, 216, 208);
   background-color: rgb(250, 250, 250);
   font-family: 'Poiret One', cursive;
-}
-
-.profile img {
-  border-radius: 10px;
-  border: 3px solid rgb(129, 216, 208);
-  width: 150px;
 }
 
 .cardContainer {
@@ -174,7 +186,7 @@ body {
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);  
+    transform: translate(-50%, -50%);
 }
 .messageBox {
   display: flex;
@@ -231,16 +243,16 @@ $barsize: 15px;
   &:after {
     transition: opacity 0.3s ease, animation 0.3s ease;
     background: linear-gradient(
-        to right, 
-        #62efab 5%, 
-        #F2EA7D 15%, 
-        #F2EA7D 25%, 
-        #FF8797 35%, 
-        #FF8797 45%, 
-        #e1a4f4 55%, 
-        #e1a4f4 65%, 
-        #82fff4 75%, 
-        #82fff4 85%, 
+        to right,
+        #62efab 5%,
+        #F2EA7D 15%,
+        #F2EA7D 25%,
+        #FF8797 35%,
+        #FF8797 45%,
+        #e1a4f4 55%,
+        #e1a4f4 65%,
+        #82fff4 75%,
+        #82fff4 85%,
         #62efab 95%);
     background-size: 200%;
     background-position: 0%;
@@ -255,35 +267,35 @@ $barsize: 15px;
 
 .hr.anim {
   &:before {
-    background: linear-gradient( 
-      90deg, 
-      $bg 0%, $bg 5%, 
-      transparent 5%, transparent 10%, 
-      $bg 10%, $bg 15%, 
-      transparent 15%, transparent 20%, 
+    background: linear-gradient(
+      90deg,
+      $bg 0%, $bg 5%,
+      transparent 5%, transparent 10%,
+      $bg 10%, $bg 15%,
+      transparent 15%, transparent 20%,
       $bg 20%, $bg 25%,
       transparent 25%, transparent 30%,
-      $bg 30%, $bg 35%, 
-      transparent 35%, transparent 40%, 
-      $bg 40%, $bg 45%, 
-      transparent 45%, transparent 50%, 
+      $bg 30%, $bg 35%,
+      transparent 35%, transparent 40%,
+      $bg 40%, $bg 45%,
+      transparent 45%, transparent 50%,
       $bg 50%, $bg 55%,
       transparent 55%, transparent 60%,
       $bg 60%, $bg 65%,
-      transparent 65%, transparent 70%, 
-      $bg 70%, $bg 75%, 
-      transparent 75%, transparent 80%, 
+      transparent 65%, transparent 70%,
+      $bg 70%, $bg 75%,
+      transparent 75%, transparent 80%,
       $bg 80%, $bg 85%,
       transparent 85%, transparent 90%,
-      $bg 90%, $bg 95%, 
+      $bg 90%, $bg 95%,
       transparent 95%, transparent 100% );
 
     background-size: $barsize * 10;
     background-position: center;
     z-index: 1;
-    
+
     animation: bar 120s linear infinite;
-      
+
   }
 
   &:hover {
@@ -294,4 +306,9 @@ $barsize: 15px;
         animation-duration: 2s;
     }
   }
+}
+
+#inboxContainer {
+  position: absolute;
+  top: 100px
 }

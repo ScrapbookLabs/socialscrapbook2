@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Profile from './Profile.jsx';
 import EventsFeed from './EventsFeed.jsx';
-import Notnav from './Navbar.jsx';
+import Navbar from './Navbar.jsx';
 import axios from 'axios';
 import { Card, Button, Col, Row, Container } from 'react-bootstrap';
 import AddSearchEvent from './AddSearchEvent.jsx';
@@ -12,6 +12,7 @@ export default function MainContainer() {
   const [userName, setUserName] = useState("");
   const [user, setUser] = useState({});
   const [events, setEvents] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
   //pull user data after OAuth login - all variables are named from SQL DB columns
   useEffect(() => {
     axios.get(`/api/info?userName=${userName}`)
@@ -26,6 +27,7 @@ export default function MainContainer() {
         setUser(userInfo);
         setEvents(eventsInfo);
         setUserName(res.data.users.username);
+        setLoggedIn(true);
       })
   }, []);
   //updates username when a different user is selected
@@ -64,10 +66,10 @@ export default function MainContainer() {
 
   return (
     <div className="myContainer">
-      <Notnav />
+      <Navbar loggedIn={loggedIn} profilePhoto={user.profilephoto}/>
       <div className="container">
         <Container className="header">
-          <Profile {...user} />
+          {/* <Profile {...user} /> */}
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
         </Container>
         <EventsFeed
