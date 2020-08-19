@@ -13,13 +13,13 @@ app.use(cookieParser());
 // SERVE UP STATIC FILES
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
+// API ROUTER
+app.use('/api', apiRouter);
+
 // SERVE INDEX.HTML ON THE ROUTE '/'
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
-
-// API ROUTER
-app.use('/api', apiRouter);
 
 // HANDLING UNKNOWN URLS
 app.use('*', (req, res) => {

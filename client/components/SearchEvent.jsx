@@ -32,7 +32,7 @@ export default function SearchEvent({ searchEvent, events }) {
       .then(res => {
         eventData = res.data;
       })
-  });
+  }, []);
   //filters list of events as the user types in
   const handleChange = (e) => {
     const regex = new RegExp(e.target.value.trim(), "gi");
@@ -47,7 +47,13 @@ export default function SearchEvent({ searchEvent, events }) {
   };
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    fetch('/api/events')
+      .then(res => {
+        eventData = res.data;
+      })
+    setShow(true);
+  }
 
   //generates a list of events on load using fetch
   const btnResults = results.map(event => {
