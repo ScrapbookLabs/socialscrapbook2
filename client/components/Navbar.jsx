@@ -9,7 +9,7 @@ export default function OurNavbar({ loggedIn, profilePhoto }) {
   
   // use react hook for state to render <Inbox /> conditionally
   const [inbox, setInbox] = useState(false);
-  
+
   // change state after button click
   const handleClickInbox = () => {
    setInbox(!inbox);

@@ -310,5 +310,35 @@ $barsize: 15px;
 
 #inboxContainer {
   position: absolute;
-  top: 100px
+  top: 150px;
+  right: 50px;
+  // background-color: rgb(129, 216, 208);
+  background-color: purple;
+  color: lightgrey;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.inboxButtons {
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+}
+
+.inboxSubmitAttend {
+  background-color: rgb(129, 216, 208);
+}
+
+.inboxSubmitDecline {
+  background-color:lightcoral;
+}
+
+.inboxDetails {
+  display: flex;
+  justify-content: flex-start;
+  min-width: 270px;
+}
+
+.inboxItem {
+  display: flex;
 }

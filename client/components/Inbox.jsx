@@ -29,15 +29,19 @@ export default function Inbox(props) {
     const eventList = eventsFetchRes.map((el, i)=>{
       return (
         <div key={i} className='inboxItem'>
-          <span className='inboxItemPhoto'>add event photo</span>
-          <span className='inboxItemEventNameTitle'>Event Name: </span>
-          <span className='inboxItemEventName'>{el}</span>
-          <span>
-            <button className="inboxSubmitAttend" onClick={handleClickAttend}>Attend</button>
-          </span>
-          <span>
-            <button className="inboxSubmitDecline" onClick={handleClickDecline}>Decline</button>
-          </span>
+          <div className='inboxDetails'>
+            <span className='inboxItemPhoto'>add event photo </span>
+            <span className='inboxItemEventNameTitle'>Event Name: </span>
+            <span className='inboxItemEventName'>{el}</span>
+          </div>
+          <div className='inboxButtons'>
+            <span>
+              <button className="inboxSubmitAttend" onClick={handleClickAttend}>Attend</button>
+            </span>
+            <span>
+              <button className="inboxSubmitDecline" onClick={handleClickDecline}>Decline</button>
+            </span>
+          </div>
         </div>
       )
     })
