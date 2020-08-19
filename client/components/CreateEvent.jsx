@@ -5,6 +5,9 @@ import DateTimePicker from 'react-datetime-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button, Form, Card } from 'react-bootstrap';
+import regeneratorRuntime from "regenerator-runtime";
+
+// import FormData from 'form-data';
 
 export default function CreateEvent({ addEvent }) {
   /* Form data */
@@ -17,6 +20,8 @@ export default function CreateEvent({ addEvent }) {
   const [formData, updateFormData] = React.useState(initialFormData);
   const [dateTime, onChange] = useState(new Date());
   const [show, setShow] = useState(false);
+
+  const [previewSource, setPreviewSource] = useState('');
   //handles any change tot he form and updates the state
   const handleChange = (e) => {
     updateFormData({
@@ -32,9 +37,44 @@ export default function CreateEvent({ addEvent }) {
     let time = dateTime.toTimeString();
     let eventstarttime = time.split(" ")[0];
     // ... submit to API or something
-    addEvent({ ...formData, eventdate, eventstarttime });
+    addEvent({ ...formData, eventdate, eventstarttime, eventpic: previewSource });
+    uploadImage(previewSource);
     handleClose();
   };
+
+  const handlePhoto = (e) => {
+    const file = e.target.files[0];
+    // previewFile(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    }
+  }
+
+  // const previewFile = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreviewSource(reader.result);
+  //   }
+  // }
+
+
+  const uploadImage = async (base64EncodedImage) => {
+    try {
+      await fetch('/api/photo', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage, eventtitle: formData.eventtitle}),
+        headers: { 
+          'Content-Type': 'application/json' 
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -69,6 +109,15 @@ export default function CreateEvent({ addEvent }) {
               <Form.Label>Event Description</Form.Label>
               <Form.Control name='eventdetails' onChange={handleChange} required as="textarea" placeholder="Enter description" />
             </Form.Group>
+
+            <Form.Group controlId="formEventPhoto"> 
+              <Form.Label>Event Photo</Form.Label> 
+              <Form.Control name='photo' type='file' onChange={handlePhoto}/>
+            </Form.Group>
+
+            {previewSource && (
+              <img src={previewSource} alt="chosen" style={{height: '300px'}} />
+            )}
 
             <Form.Group controlId="formEventDescription">
               <Form.Label>Start Date & Time</Form.Label>
