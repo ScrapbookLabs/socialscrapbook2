@@ -18,9 +18,9 @@ export default function Invite(props) {
   // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
   }
 
-  const friendsList = friendsFetchRes.map((el)=>{
+  const friendsList = friendsFetchRes.map((el, i)=>{
     return (
-      <div className='inviteFriendContainer'>
+      <div key={i} className='inviteFriendContainer'>
         <span className='inviteFriendPhoto'>Photo</span>
         <span className='inviteFriendName'>{el}</span>
         <span className='inviteFriendButton'>
