@@ -7,7 +7,7 @@ import { faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button, Form, Card } from 'react-bootstrap';
 import regeneratorRuntime from "regenerator-runtime";
 
-import FormData from 'form-data';
+// import FormData from 'form-data';
 
 export default function CreateEvent({ addEvent }) {
   /* Form data */
