@@ -19,8 +19,11 @@ export default function Invite(props) {
   // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
     axios('/api/invite')
       .then((res)=>{
-        console.log(res)
         console.log(res.data.users)
+        // friendsFetchRes = res.data.users
+      })
+      .catch((err)=>{
+        console.log('error', err)
       })
   }
 
@@ -28,7 +31,7 @@ export default function Invite(props) {
     return (
       <div key={i} className='inviteFriendContainer'>
         <span className='inviteFriendPhoto'>Photo</span>
-        <span className='inviteFriendName'>{el}</span>
+        <span className='inviteFriendName'>{'hello'}</span>
         <span className='inviteFriendButton'>
           <button onClick={handleClickInvite}>Invite</button>
         </span>
