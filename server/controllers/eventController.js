@@ -186,7 +186,7 @@ eventController.allEvents = (req, res, next) => {
       if (!data.rows) {
         res.locals.allEventsInfo = [];
       } else {
-        // then grabs all the attendees fromt he user and events table joined with the user table
+        // then grabs all the attendees from the user and events table joined with the user table
         const eventAndUserDataQueryString = queries.getAttendeeEvents;
         db.query(eventAndUserDataQueryString).then(eventAndUserData => {
           // goes through the table and creates an attendees array with the list of user data
