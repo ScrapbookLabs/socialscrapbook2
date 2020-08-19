@@ -65,6 +65,26 @@ export default function MainContainer() {
       })
   }
 
+  function handleDeletePhoto(eventtitle) {
+    const lessEvents = events.map(event => {
+      if (event.eventtitle === eventtitle) {
+        return {...event, eventpic: null}
+      } else {
+        return event;
+      }
+    });
+
+    const response = axios.delete('/api/photo', {
+      data: {
+        eventtitle: eventtitle,
+      }
+    });
+
+    console.log('main container response', response)
+
+    setEvents(lessEvents);
+  }
+
   return (
     <div className="myContainer">
       <Navbar loggedIn={loggedIn} profilePhoto={user.profilephoto}/>
@@ -76,6 +96,7 @@ export default function MainContainer() {
         <EventsFeed
           events={events}
           userUpdate={handleUserPageChange}
+          deletePhoto={handleDeletePhoto}
         />
       </div>
     </div>
