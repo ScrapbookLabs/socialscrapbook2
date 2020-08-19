@@ -66,7 +66,6 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
-<<<<<<< HEAD
 
 queries.deleteUsersAndEvents = `
 DELETE FROM usersandevents WHERE eventid=$1`
@@ -81,6 +80,3 @@ DELETE FROM usersandevents WHERE eventid=$1`
 
 
 module.exports = queries;
-=======
-module.exports = queries;
->>>>>>> 8df82436ecb96987628872713b2c34f9e03dc5b8
