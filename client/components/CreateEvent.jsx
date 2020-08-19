@@ -38,7 +38,7 @@ export default function CreateEvent({ addEvent }) {
     let eventstarttime = time.split(" ")[0];
     // ... submit to API or something
     addEvent({ ...formData, eventdate, eventstarttime, eventpic: previewSource });
-    
+    uploadImage(previewSource);
     handleClose();
   };
 
