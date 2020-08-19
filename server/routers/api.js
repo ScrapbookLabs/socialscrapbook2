@@ -145,7 +145,7 @@ router.get('/allphotos', async (req, res, next) => {
 // GET ALL USERS FOR INVITE LIST
 
 router.get('/invite', inviteController.userList, (req, res) =>{
-  res.sendStatus(202).json(res.locals.invite)
+  res.status(202).json({users: res.locals.invite})
 })
 
 

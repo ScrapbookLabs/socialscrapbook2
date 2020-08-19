@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Card } from 'react-bootstrap';
-import { json } from "express";
+import axios from 'axios';
 
 export default function Invite(props) {
   const [show, setShow] = useState(true);
@@ -14,17 +14,15 @@ export default function Invite(props) {
   // "friendsFetchRes" is dummy for 'get' fetch to get your friends list from database
   let friendsFetchRes = ['friend1', 'friend2', 'friend3']
 
-  // const handleClickInvite = () =>{
-  // // send a 'post' fetch to the server with req.body containing the friend name 
-  // // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
-  //   fetch('/api/invite')
-  //     .then((data)=>{
-  //       return data.json()
-  //     })
-  //     .then((data)=>{
-  //       console.log(data)
-  //     })
-  // }
+  const handleClickInvite = () =>{
+  // send a 'post' fetch to the server with req.body containing the friend name 
+  // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
+    axios('/api/invite')
+      .then((res)=>{
+        console.log(res)
+        console.log(res.data.users)
+      })
+  }
 
   const friendsList = friendsFetchRes.map((el, i)=>{
     return (
