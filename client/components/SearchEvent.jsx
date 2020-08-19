@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 
 import DateTimePicker from 'react-datetime-picker';
 
@@ -28,8 +22,9 @@ export default function SearchEvent({ searchEvent, events }) {
   //filters list of events as the user types in
   const handleChange = (e) => {
     const regex = new RegExp(e.target.value.trim(), "gi");
-    const eventTitles = events.map(event => event.eventtitle)
-    updateResults(eventData.filter((event) => event.eventtitle.match(regex) && !eventTitles.includes(event.eventtitle)))
+    const userEventTitles = events.map(event => event.eventtitle)
+    updateResults(eventData.filter((event) => event.eventtitle.match(regex) && !userEventTitles.includes(event.eventtitle)))
+    console.log(eventData);
   };
   //pass the added search event back to the main container
   const handleSubmit = (e, event) => {
