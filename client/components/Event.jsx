@@ -34,6 +34,9 @@ export default function Event(props) {
               {eventpic && (
                 <CoverPhoto eventpic={eventpic} />
               )}
+              {(!eventpic & !props.eventpic) && (
+                <button>Add Photo</button>
+              )}
               <h4>{props.eventdate} - {props.starttime}</h4>
               <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
               <p>{props.eventdetails}</p>
