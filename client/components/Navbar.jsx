@@ -12,7 +12,7 @@ export default function OurNavbar({ loggedIn, profilePhoto }) {
   
   // change state after button click
   const handleClickInbox = () => {
-   setInbox(!inbox)
+   setInbox(!inbox);
   }
 
   return (
