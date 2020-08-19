@@ -9,17 +9,6 @@ import axios from 'axios';
 
 export default function Event(props) {
 
-  const [eventpic, setEventpic] = useState('');
-
-  useEffect(() => {
-    axios.get(`/api/photo?title=${props.eventtitle}`)
-      .then((res) => {
-        if (res.data) {
-          setEventpic(res.data.url);
-        }
-    })
-  }, [])
-
   return (
     <>
       <b className="hr anim"></b>
@@ -28,15 +17,11 @@ export default function Event(props) {
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
-              {props.eventpic && (
-                <CoverPhoto eventpic={props.eventpic} />
-              )}
-              {eventpic && (
-                <CoverPhoto eventpic={eventpic} />
-              )}
-              {(!eventpic & !props.eventpic) && (
-                <button>Add Photo</button>
-              )}
+              <div className="coverPhotoContainer">
+                {props.eventpic && (
+                  <CoverPhoto eventpic={props.eventpic} />
+                )}
+              </div>
               <h4>{props.eventdate} - {props.starttime}</h4>
               <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
               <p>{props.eventdetails}</p>
