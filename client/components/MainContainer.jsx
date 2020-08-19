@@ -13,7 +13,7 @@ export default function MainContainer() {
   const [user, setUser] = useState({});
   const [events, setEvents] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-  //pull user data after OAuth login - all variables are named from SQL DB columns
+  // pull user data after OAuth login - all variables are named from SQL DB columns
   useEffect(() => {
     axios.get(`/api/info?userName=${userName}`)
       .then((res) => {

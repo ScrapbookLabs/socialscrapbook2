@@ -126,6 +126,7 @@ eventController.verifyAttendee = (req, res, next) => {
           message: { err: "User is already an attendee" },
         });
       } else {
+        console.log("We tripped the if")
         res.locals.eventID = data.rows[0].eventid;
         res.locals.eventTitle = data.rows[0].eventtitle;
         res.locals.eventDate = data.rows[0].eventdate;
@@ -133,6 +134,7 @@ eventController.verifyAttendee = (req, res, next) => {
         res.locals.eventEndTime = data.rows[0].eventendtime;
         res.locals.eventDetails = data.rows[0].eventdetails;
         res.locals.eventLocation = data.rows[0].eventlocation;
+        console.log("We're at the end")
         return next();
       }
     })
