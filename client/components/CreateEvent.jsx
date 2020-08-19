@@ -112,8 +112,12 @@ export default function CreateEvent({ addEvent }) {
 
             <Form.Group controlId="formEventPhoto"> 
               <Form.Label>Event Photo</Form.Label> 
-              <Form.Control name='photo' type='file' />
+              <Form.Control name='photo' type='file' onChange={handlePhoto}/>
             </Form.Group>
+
+            {previewSource && (
+              <img src={previewSource} alt="chosen" style={{height: '300px'}} />
+            )}
 
             <Form.Group controlId="formEventDescription">
               <Form.Label>Start Date & Time</Form.Label>
