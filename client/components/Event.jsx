@@ -6,10 +6,12 @@ import { ListGroup, Container, Row, Jumbotron } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
+import Invite from './Invite.jsx'
 
 export default function Event(props) {
 
   const [eventpic, setEventpic] = useState('');
+  const [inviteView, setInviteView] = useState(false)
 
   useEffect(() => {
     axios.get(`/api/photo?title=${props.eventtitle}`)
@@ -20,12 +22,16 @@ export default function Event(props) {
     })
   }, [])
 
+  const handleClickInvite = () => {
+    setInviteView(!inviteView)
+  }
+
   return (
     <>
       <b className="hr anim"></b>
       <div className="event">
         <Container>
-          <button>Invite Friends</button>
+          <button onClick={handleClickInvite}>Invite Friends</button>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
@@ -50,6 +56,7 @@ export default function Event(props) {
           <Content {...props} />
         </Container>
       </div>
+      {inviteView && <Invite />}
     </>
   );
 }

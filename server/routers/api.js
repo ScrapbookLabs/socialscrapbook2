@@ -5,6 +5,8 @@ const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
+const inviteController = require('../controllers/inviteController');
+
 
 const { cloudinary } = require('../utils/cloudinary.js');
 
@@ -142,7 +144,9 @@ router.get('/allphotos', async (req, res, next) => {
 
 // GET ALL USERS FOR INVITE LIST
 
-router.get('/invite', )
+router.get('/invite', inviteController.userList, (req, res) =>{
+  res.sendStatus(202).json(res.locals.invite)
+})
 
 
 module.exports = router;
