@@ -23,7 +23,18 @@ export default function MainContainer() {
           lastname: res.data.users.lastname,
           profilephoto: res.data.users.profilephoto,
         }
-        let eventsInfo = res.data.events;
+        // let eventsInfo = res.data.events;
+
+        let eventsInfo = [];
+        res.data.events.map((event) => {
+          axios.get(`/api/photo?title=${event.eventtitle}`)
+          .then((res) => {
+            if (res.data) {
+              eventsInfo.push({...event, eventpic: res.data.url})
+            } else eventsInfo.push(event)
+          })
+        })
+
         setUser(userInfo);
         setEvents(eventsInfo);
         setUserName(res.data.users.username);
