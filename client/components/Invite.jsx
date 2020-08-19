@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Card } from 'react-bootstrap';
 
 export default function Invite(props) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const handleClickClose = () => setShow(false);
   const handleClickShow = () => setShow(true);
@@ -16,10 +16,6 @@ export default function Invite(props) {
   const handleClickInvite = () =>{
   // send a 'post' fetch to the server with req.body containing the friend name 
   // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
-  }
-
-  const handleClickClose = () => {
-
   }
 
   const friendsList = friendsFetchRes.map((el)=>{
@@ -36,16 +32,23 @@ export default function Invite(props) {
 
   // need to create a div that holds all friends inside (probably use scroll bar)
   return (
-    <Modal show={show}>
-      <div className='inviteContainer'>
-        <h1 id='inviteHeader'>Invite Friends to your Event</h1>
-        <div className='inviteScrollContainer'>
-          {friendsList}
-        </div>
-      </div>
-      <Modal.footer>
-        <button onClick={handleClickClose}>Close</button>
-      </Modal.footer>
-    </Modal>
+    <div>
+      {/* <div onClick={handleClickShow} onHide={handleClickClose} animation={true}>
+        show invite
+      </div> */}
+      <Modal show={show}>
+        <Modal.Body>
+          <div className='inviteContainer'>
+            <h1 id='inviteHeader'>Invite Friends to your Event</h1>
+            <div className='inviteScrollContainer'>
+              {friendsList}
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClickClose}>Close</button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   )
 }

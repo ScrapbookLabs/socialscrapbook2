@@ -4,15 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faFeatherAlt, faInbox } from '@fortawesome/free-solid-svg-icons'
 import Inbox from './Inbox.jsx'
+import Invite from './Invite.jsx'
+
 
 export default function OurNavbar({ loggedIn, profilePhoto }) {
   
   // use react hook for state to render <Inbox /> conditionally
   const [inbox, setInbox] = useState(false);
-
   // change state after button click
   const handleClickInbox = () => {
    setInbox(!inbox);
+  }
+
+  // testing to make sure Modal works
+  const [invite, setInvite] = useState(false);
+  const handleClickInvite = () => {
+    setInvite(!invite);
   }
 
   return (
@@ -34,6 +41,7 @@ export default function OurNavbar({ loggedIn, profilePhoto }) {
           <a href="/api/logout"><Button className="navButton" variant="outline-primary">Logout</Button></a>
       </Nav.Item>}
       {inbox && <Inbox />}
+      {invite && <Invite />}
     </Nav>
   </Navbar>
   )
