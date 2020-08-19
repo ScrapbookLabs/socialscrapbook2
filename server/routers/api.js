@@ -6,6 +6,8 @@ const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
 
+const { cloudinary } = require('../utils/cloudinary.js');
+
 // EXISING USER LOGIN
 
 router.get('/login',
