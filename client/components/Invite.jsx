@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function Invite(props) {
   const [show, setShow] = useState(true);
   const [friends, setFriends] = useState([]);
-  const [inviteTable, setInviteTable] = useState({});
+  const [friendsData, setFriendsData] = useState([]);
 
   const handleClickClose = () => setShow(false);
 
@@ -13,6 +13,7 @@ export default function Invite(props) {
     axios('/api/invite')
       .then((res)=>{
         const resUsers = res.data.users
+        setFriendsData(res.data.users)
         setFriends(resUsers.map((el, i)=>{
           return (
             <div key={i} className='inviteFriendContainer'>
@@ -31,6 +32,8 @@ export default function Invite(props) {
   const handleClickInvite = () => {
     // have userid and username
     console.log('works')
+    console.log(props.event)
+    console.log(friendsData)
   }
 
   return (

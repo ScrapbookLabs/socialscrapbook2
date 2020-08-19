@@ -11,6 +11,7 @@ export default function EventsFeed(props) {
         {...event}
         userUpdate={props.userUpdate}
         deletePhoto={props.deletePhoto}
+        event={props.events[index]}
         key={`EventsFeed${index}`}
       />
     })

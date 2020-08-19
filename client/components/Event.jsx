@@ -56,7 +56,7 @@ export default function Event(props) {
           <Content {...props} />
         </Container>
       </div>
-      {inviteView && <Invite />}
+      {inviteView && <Invite event={props.event} />}
     </>
   );
 }
