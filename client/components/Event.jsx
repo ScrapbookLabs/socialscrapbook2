@@ -9,6 +9,7 @@ import axios from 'axios';
 
 export default function Event(props) {
 
+<<<<<<< HEAD
   const [eventpic, setEventpic] = useState('');
   const [eventID, setEventID] = useState('')
 
@@ -26,6 +27,8 @@ export default function Event(props) {
     })
   }, [])
 
+=======
+>>>>>>> 8df82436ecb96987628872713b2c34f9e03dc5b8
   return (
     <>
       <b className="hr anim"></b>
@@ -35,12 +38,11 @@ export default function Event(props) {
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
-              {props.eventpic && (
-                <CoverPhoto eventpic={props.eventpic} />
-              )}
-              {eventpic && (
-                <CoverPhoto eventpic={eventpic} />
-              )}
+              <div className="coverPhotoContainer">
+                {props.eventpic && (
+                  <CoverPhoto eventpic={props.eventpic} />
+                )}
+              </div>
               <h4>{props.eventdate} - {props.starttime}</h4>
               <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
               <p>{props.eventdetails}</p>

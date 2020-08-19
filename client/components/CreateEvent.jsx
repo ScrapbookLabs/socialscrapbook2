@@ -38,7 +38,6 @@ export default function CreateEvent({ addEvent }) {
     let eventstarttime = time.split(" ")[0];
     // ... submit to API or something
     addEvent({ ...formData, eventdate, eventstarttime, eventpic: previewSource });
-    uploadImage(previewSource);
     handleClose();
   };
 
@@ -61,19 +60,19 @@ export default function CreateEvent({ addEvent }) {
   // }
 
 
-  const uploadImage = async (base64EncodedImage) => {
-    try {
-      await fetch('/api/photo', {
-        method: 'POST',
-        body: JSON.stringify({ data: base64EncodedImage, eventtitle: formData.eventtitle}),
-        headers: { 
-          'Content-Type': 'application/json' 
-        }
-      })
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  // const uploadImage = async (base64EncodedImage) => {
+  //   try {
+  //     await fetch('/api/photo', {
+  //       method: 'POST',
+  //       body: JSON.stringify({ data: base64EncodedImage, eventtitle: formData.eventtitle}),
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
 
   const handleClose = () => setShow(false);
@@ -110,8 +109,8 @@ export default function CreateEvent({ addEvent }) {
               <Form.Control name='eventdetails' onChange={handleChange} required as="textarea" placeholder="Enter description" />
             </Form.Group>
 
-            <Form.Group controlId="formEventPhoto"> 
-              <Form.Label>Event Photo</Form.Label> 
+            <Form.Group controlId="formEventPhoto">
+              <Form.Label>Event Photo</Form.Label>
               <Form.Control name='photo' type='file' onChange={handlePhoto}/>
             </Form.Group>
 

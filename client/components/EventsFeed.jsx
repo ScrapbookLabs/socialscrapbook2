@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Event from './Event.jsx';
+import axios from 'axios';
 
 export default function EventsFeed(props) {
   let feedEvents = [];

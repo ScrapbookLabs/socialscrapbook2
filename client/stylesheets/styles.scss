@@ -114,12 +114,49 @@ body {
   font-family: 'Abril Fatface';
   letter-spacing: 3px;
   font-size: 60px;
+  margin: 0;
 }
 
 /* CoverPhoto.jsx */
 
+.coverPhotoContainer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .coverPhoto {
-  
+  width: 200px;
+}
+
+.coverPhoto img {
+  width: 100%;
+  height: auto;
+}
+
+.hudBackground {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  height: 40px;
+  width: 200px;
+}
+
+.newPhotoButton {
+  float: left;
+  margin-top: 12px;
+  margin-left: 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.cancelButton {
+  float: right;
+  margin-top: 12px;
+  margin-right: 12px;
+  cursor: pointer;
+  color: white;
 }
 
 /* EventAttendees.jsx */
