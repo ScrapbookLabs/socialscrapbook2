@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Card } from 'react-bootstrap';
 
 export default function Invite(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClickClose = () => setShow(false);
+  const handleClickShow = () => setShow(true);
+  
   // try to autofill? 
   // or get a list of all your friends and then see which to invite? Could add scroll bar with friends
     
@@ -11,6 +16,10 @@ export default function Invite(props) {
   const handleClickInvite = () =>{
   // send a 'post' fetch to the server with req.body containing the friend name 
   // either remove friend from the inviteScrollContainer or change color of the invite button to green and say "invited"
+  }
+
+  const handleClickClose = () => {
+
   }
 
   const friendsList = friendsFetchRes.map((el)=>{
@@ -27,11 +36,16 @@ export default function Invite(props) {
 
   // need to create a div that holds all friends inside (probably use scroll bar)
   return (
-    <div className='inviteContainer'>
-      <h1 id='inviteHeader'>Invite Friends to your Event</h1>
-      <div className='inviteScrollContainer'>
-        {friendsList}
+    <Modal show={show}>
+      <div className='inviteContainer'>
+        <h1 id='inviteHeader'>Invite Friends to your Event</h1>
+        <div className='inviteScrollContainer'>
+          {friendsList}
+        </div>
       </div>
-    </div>
+      <Modal.footer>
+        <button onClick={handleClickClose}>Close</button>
+      </Modal.footer>
+    </Modal>
   )
 }
