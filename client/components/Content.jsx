@@ -22,6 +22,8 @@ export default function Content({ content }) {
         </div>
       )
     });
+  } else {
+    setCont([])
   }
   //handles change to comment - updates the state
   const handleChange = (e) => {
