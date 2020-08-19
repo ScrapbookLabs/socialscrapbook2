@@ -66,4 +66,9 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
+// GET ALL USERS
+queries.getAllUsers = `
+SELECT * FROM users
+`;
+
 module.exports = queries;

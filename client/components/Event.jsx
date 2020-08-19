@@ -12,6 +12,7 @@ export default function Event(props) {
       <b className="hr anim"></b>
       <div className="event">
         <Container>
+          <button>Invite Friends</button>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>

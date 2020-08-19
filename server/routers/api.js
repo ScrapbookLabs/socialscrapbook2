@@ -127,5 +127,9 @@ router.get('/allphotos', async (req, res, next) => {
   res.status(200).json({ ids: publicIds });
 })
 
+// GET ALL USERS FOR INVITE LIST
+
+router.get('/invite', )
+
 
 module.exports = router;
