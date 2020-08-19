@@ -23,36 +23,35 @@ export default function SearchEvent({ searchEvent, events }) {
   const [formData, updateFormData] = React.useState(initialFormData);
   const [results, updateResults] = useState([]);
   const [show, setShow] = useState(false);
+  const [eventData, setEventData] = useState([]);
 
-  let exampleEventData;
-
-  //pulls list of all events from DB
-  useEffect(() => {
-    axios.get('/api/events')
-      .then(res => {
-        exampleEventData = res.data;
-      })
-  });
   //filters list of events as the user types in
   const handleChange = (e) => {
     const regex = new RegExp(e.target.value.trim(), "gi");
     const eventTitles = events.map(event => event.eventtitle)
-    updateResults(exampleEventData.filter((event) => event.eventtitle.match(regex) && !eventTitles.includes(event.eventtitle)))
+    updateResults(eventData.filter((event) => event.eventtitle.match(regex) && !eventTitles.includes(event.eventtitle)))
   };
   //pass the added search event back to the main container
   const handleSubmit = (e, event) => {
-    e.preventDefault()
-    searchEvent(event)
+    e.preventDefault();
+    searchEvent(event);
     handleClose();
   };
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    // Grabs all events from database
+    axios.get('/api/events')
+      .then(res => {
+        setEventData(res.data);
+      })
+    setShow(true);
+  }
 
   //generates a list of events on load using fetch
   const btnResults = results.map(event => {
     return (
-      <Button className="searchResult" variant="primary" type="submit" onClick={(e) => { handleSubmit(e, event) }}>{event.eventtitle}</Button>
+      <Button className="searchResult" key={event.eventid} variant="primary" type="submit" onClick={(e) => { handleSubmit(e, event) }}>{event.eventtitle}</Button>
     );
   })
 
