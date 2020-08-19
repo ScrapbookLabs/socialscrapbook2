@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Card } from 'react-bootstrap';
 import axios from 'axios';
+import InviteUser from './InviteUser.jsx'
 
 export default function Invite(props) {
   const [show, setShow] = useState(true);
@@ -16,14 +17,7 @@ export default function Invite(props) {
         setFriendsData(res.data.users)
         setFriends(resUsers.map((el, i)=>{
           return (
-            <div key={i} className='inviteFriendContainer'>
-              <span className='inviteFriendPhoto'>Photo  </span>
-              <span className='inviteFriendFirstName'>{el.firstname}</span>
-              <span className='inviteFriendLastName'>{el.lastname}</span>
-              <span className='inviteFriendButton'>
-                <button onClick={handleClickInvite}>Invite</button>
-              </span>
-            </div>
+            <InviteUser forKey={`invite${i}`} event={props.event} user={el} users={res.data.users} />
           )
         }))
       })
@@ -32,8 +26,6 @@ export default function Invite(props) {
   const handleClickInvite = () => {
     // have userid and username
     console.log('works')
-    console.log(props.event)
-    console.log(friendsData)
   }
 
   return (
