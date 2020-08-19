@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function Event(props) {
 
-  const [eventpic, setEventpic] = useState('');
+  const [eventpic, setEventpic] = useState('https://katpadi.files.wordpress.com/2012/02/loading____please_wait_by_cyanide_cloud1.png');
 
   useEffect(() => {
     axios.get(`/api/photo?title=${props.eventtitle}`)
@@ -28,12 +28,14 @@ export default function Event(props) {
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
-              {props.eventpic && (
-                <CoverPhoto eventpic={props.eventpic} />
-              )}
-              {eventpic && (
-                <CoverPhoto eventpic={eventpic} />
-              )}
+              <div className="coverPhotoContainer">
+                {props.eventpic && (
+                  <CoverPhoto eventpic={props.eventpic} />
+                )}
+                {eventpic && (
+                  <CoverPhoto eventpic={eventpic} />
+                )}
+              </div>
               <h4>{props.eventdate} - {props.starttime}</h4>
               <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
               <p>{props.eventdetails}</p>

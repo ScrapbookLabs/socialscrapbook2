@@ -109,7 +109,10 @@ router.get('/photo', async (req, res, next) => {
   const eventtitle = req.query.title;
   const { resources } = await cloudinary.search
     .expression(`public_id: social_scrapbook_2/${eventtitle}`)
-    .execute();
+    .execute()
+    .catch(err => {
+      console.log(err);
+    });
 
   res.status(200).json(resources[0]);
 })
