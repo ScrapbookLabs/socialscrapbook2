@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Media, Form, Button } from 'react-bootstrap';
 
 export default function Content({ content }) {
-  console.log("content ", content)
   const [cont, setCont] = useState(content);
   const [comment, setComment] = useState("")
 

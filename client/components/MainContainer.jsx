@@ -23,17 +23,7 @@ export default function MainContainer() {
           lastname: res.data.users.lastname,
           profilephoto: res.data.users.profilephoto,
         }
-        // let eventsInfo = res.data.events;
-
-        let eventsInfo = [];
-        res.data.events.map((event) => {
-          axios.get(`/api/photo?title=${event.eventtitle}`)
-          .then((res) => {
-            if (res.data) {
-              eventsInfo.push({...event, eventpic: res.data.url})
-            } else eventsInfo.push(event)
-          })
-        })
+        let eventsInfo = res.data.events;
 
         setUser(userInfo);
         setEvents(eventsInfo);
@@ -75,6 +65,26 @@ export default function MainContainer() {
       })
   }
 
+  function handleDeletePhoto(eventtitle) {
+    const lessEvents = events.map(event => {
+      if (event.eventtitle === eventtitle) {
+        return {...event, eventpic: null}
+      } else {
+        return event;
+      }
+    });
+
+    const response = axios.delete('/api/photo', {
+      data: {
+        eventtitle: eventtitle,
+      }
+    });
+
+    console.log('main container response', response)
+
+    setEvents(lessEvents);
+  }
+
   return (
     <div className="myContainer">
       <Navbar loggedIn={loggedIn} profilePhoto={user.profilephoto}/>
@@ -86,6 +96,7 @@ export default function MainContainer() {
         <EventsFeed
           events={events}
           userUpdate={handleUserPageChange}
+          deletePhoto={handleDeletePhoto}
         />
       </div>
     </div>

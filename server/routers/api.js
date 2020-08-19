@@ -114,6 +114,19 @@ router.get('/photo', async (req, res, next) => {
   res.status(200).json(resources[0]);
 })
 
+// DELETE PHOTO FROM CLOUDINARY API
+
+router.delete('/photo', async (req, res, next) => {
+  const eventtitle = req.body.eventtitle;
+  console.log('make sure title', eventtitle)
+
+  const response = await cloudinary.uploader.destroy(`social_scrapbook_2/${eventtitle}`);
+
+  console.log('delete router response ', response)
+
+  res.status(200).json(response);
+})
+
 // FETCH ALL PHOTOS FROM CLOUDINARY API
 
 router.get('/allphotos', async (req, res, next) => {
