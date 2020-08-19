@@ -23,16 +23,8 @@ export default function SearchEvent({ searchEvent, events }) {
   const [formData, updateFormData] = React.useState(initialFormData);
   const [results, updateResults] = useState([]);
   const [show, setShow] = useState(false);
+  const [eventData, setEventData] = useState([]);
 
-  let eventData;
-
-  //pulls list of all events from DB
-  useEffect(() => {
-    axios.get('/api/events')
-      .then(res => {
-        eventData = res.data;
-      })
-  }, []);
   //filters list of events as the user types in
   const handleChange = (e) => {
     const regex = new RegExp(e.target.value.trim(), "gi");
@@ -48,9 +40,10 @@ export default function SearchEvent({ searchEvent, events }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
-    fetch('/api/events')
+    // Grabs all events from database
+    axios.get('/api/events')
       .then(res => {
-        eventData = res.data;
+        setEventData(res.data);
       })
     setShow(true);
   }
