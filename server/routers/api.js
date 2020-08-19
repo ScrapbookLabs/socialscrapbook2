@@ -140,5 +140,15 @@ router.get('/allphotos', async (req, res, next) => {
   res.status(200).json({ ids: publicIds });
 })
 
+//DELETE an event
+router.delete('/events/:id',
+
+  eventController.deleteUsersAndEvents,
+  eventController.deleteEvent,
+  (req,res) =>{
+    return res.status(200).json("User has been deleted")
+  }
+)
+
 
 module.exports = router;

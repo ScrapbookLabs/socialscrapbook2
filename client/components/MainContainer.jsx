@@ -37,8 +37,9 @@ export default function MainContainer() {
   }
   //handles the state change and posts to database on event creation
   function handleCreateEvent(event) {
-    let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = event;
-    axios.post(`/api/create?userName=${userName}`, { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails })
+    let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, } = event;
+    axios.post(`/api/create?userName=${userName}`, { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails,  })
+      .then(    window.location = '/')
       .then((res) => {
       })
     event.attendees = [{
@@ -84,6 +85,28 @@ export default function MainContainer() {
 
     setEvents(lessEvents);
   }
+  // Delete Buttons for individual events
+
+  // function handleDeleteEvent(id){
+  //   const 
+  // }
+
+
+  const deleteEvent = async (id) => {
+    try{
+
+     console.log("THIS is the id youre deleting"+ id)
+      const deleteEvent = await fetch(`api/events/${id}`, {
+        method: "DELETE",
+      })
+      console.log(deleteEvent) 
+      setEvents(events.filter(event => event.eventid !== id))
+    }
+    catch(err){
+     console.error(err.message)
+    } 
+  }
+
 
   return (
     <div className="myContainer">
@@ -94,6 +117,7 @@ export default function MainContainer() {
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
         </Container>
         <EventsFeed
+          deleteEvent ={deleteEvent}
           events={events}
           userUpdate={handleUserPageChange}
           deletePhoto={handleDeletePhoto}

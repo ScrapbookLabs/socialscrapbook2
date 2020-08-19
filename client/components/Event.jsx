@@ -10,13 +10,19 @@ import axios from 'axios';
 export default function Event(props) {
 
   const [eventpic, setEventpic] = useState('');
+  const [eventID, setEventID] = useState('')
 
   useEffect(() => {
     axios.get(`/api/photo?title=${props.eventtitle}`)
+  
       .then((res) => {
+
         if (res.data) {
+          
           setEventpic(res.data.url);
+
         }
+        axios.get()
     })
   }, [])
 
@@ -25,6 +31,7 @@ export default function Event(props) {
       <b className="hr anim"></b>
       <div className="event">
         <Container>
+        <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>

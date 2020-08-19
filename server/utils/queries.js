@@ -66,4 +66,17 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
+
+queries.deleteUsersAndEvents = `
+DELETE FROM usersandevents WHERE eventid=$1`
+
+//DELETE FROM EVENTS
+ queries.deleteEvent = `
+ DELETE FROM events WHERE eventid=$1`
+
+ //GET last id# to fill in
+//  queries.getLastID = `
+//  SELECT * FROM events WHERE eventid= (SELECT max(eventid) FROM events)`
+
+
 module.exports = queries;
