@@ -15,8 +15,11 @@ export default function Event(props) {
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
-              {props.eventpic && (
-                <img src={props.eventpic} alt="eventpic" style={{height: '300px'}} />
+              {props.eventpic && ( 
+                <div>
+                  <button onClick={() => props.deletePhoto(props.eventtitle)}>x</button>
+                  <img src={props.eventpic} alt="eventpic" style={{height: '300px'}} />
+                </div>
               )}
               <h4>{props.eventdate} - {props.starttime}</h4>
               <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
