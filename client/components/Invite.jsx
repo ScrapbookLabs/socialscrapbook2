@@ -14,23 +14,23 @@ export default function Invite(props) {
 
   const friendsList = friendsFetchRes.map((el)=>{
     return (
-    <div className='inviteFriendContainer'>
+      <div className='inviteFriendContainer'>
         <span className='inviteFriendPhoto'>Photo</span>
         <span className='inviteFriendName'>{el}</span>
         <span className='inviteFriendButton'>
-            <button onClick={handleClickInvite}>Invite</button>
+          <button onClick={handleClickInvite}>Invite</button>
         </span>
-    </div>
-        )
-    })
-
-    // need to create a div that holds all friends inside (probably use scroll bar)
-    return (
-        <div className='inviteContainer'>
-            <h1 id='inviteHeader'>Invite Friends to your Event</h1>
-            <div className='inviteScrollContainer'>
-                {friendsList}
-            </div>
-        </div>
+      </div>
     )
+  })
+
+  // need to create a div that holds all friends inside (probably use scroll bar)
+  return (
+    <div className='inviteContainer'>
+      <h1 id='inviteHeader'>Invite Friends to your Event</h1>
+      <div className='inviteScrollContainer'>
+        {friendsList}
+      </div>
+    </div>
+  )
 }
