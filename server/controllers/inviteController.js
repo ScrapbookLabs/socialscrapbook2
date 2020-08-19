@@ -9,7 +9,12 @@ inviteController.userList = (req, res, next) => {
     if (!data.rows[0]) {
       res.locals.invite = [];
     } else {
+      console.log('DATA ROWS FROM ALL USERS')
+      console.log(data.rows)
       res.locals.invite = data.rows
     }
+    next()
   })
 } 
+
+module.exports = inviteController;
