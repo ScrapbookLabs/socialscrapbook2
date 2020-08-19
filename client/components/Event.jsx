@@ -9,17 +9,6 @@ import axios from 'axios';
 
 export default function Event(props) {
 
-  const [eventpic, setEventpic] = useState('https://katpadi.files.wordpress.com/2012/02/loading____please_wait_by_cyanide_cloud1.png');
-
-  useEffect(() => {
-    axios.get(`/api/photo?title=${props.eventtitle}`)
-      .then((res) => {
-        if (res.data) {
-          setEventpic(res.data.url);
-        }
-    })
-  }, [])
-
   return (
     <>
       <b className="hr anim"></b>
@@ -31,9 +20,6 @@ export default function Event(props) {
               <div className="coverPhotoContainer">
                 {props.eventpic && (
                   <CoverPhoto eventpic={props.eventpic} />
-                )}
-                {eventpic && (
-                  <CoverPhoto eventpic={eventpic} />
                 )}
               </div>
               <h4>{props.eventdate} - {props.starttime}</h4>

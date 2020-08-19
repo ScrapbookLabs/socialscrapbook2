@@ -5,6 +5,7 @@ const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
+const photoController = require('../controllers/photoController');
 
 const { cloudinary } = require('../utils/cloudinary.js');
 
@@ -62,12 +63,13 @@ router.use('/logout', // SWITCH THIS TO POST REQUEST!!
 // CREATE A NEW EVENT
 
 router.post('/create',
+  photoController.uploadPhoto,
   fileController.verifyUser,
   fileController.getUser,
   eventController.createEvent,
   eventController.addNewEventToJoinTable,
   (req, res) => {
-    return res.status(200).json('Event succcessfully created.');
+    return res.status(200).json({newEvent: res.locals.newEvent, eventpic: res.locals.photoUrl});
   });
 
 // ADD USER TO AN EXISTING EVENT
@@ -89,33 +91,21 @@ router.get('/events', // SWITCH THIS TO A GET REQUEST!!
 
 // UPLOAD A PHOTO TO CLOUDINARY API
 
-router.post('/photo', async (req, res, next) => {
-  try {
-    const fileStr = req.body.data;
-    const { eventtitle } = req.body;
-
-    const uploadedResponse = await cloudinary.uploader.upload(fileStr, { upload_preset: 'social_scrapbook_2', public_id: `${eventtitle}`});
-
-    return res.status(200).json(uploadedResponse)
-  } catch (err) {
-    console.log(err);
-    return res.status(400).json({msg: 'Photo upload went wrong in api router middleware!'})
+router.post('/photo',
+  photoController.uploadPhoto,
+  (req, res, next) => {
+    return res.status(200).json(res.locals.eventpic)
   }
-})
+)
 
 // FETCH SPECIFIC PHOTO FROM CLOUDINARY API
 
-router.get('/photo', async (req, res, next) => {
-  const eventtitle = req.query.title;
-  const { resources } = await cloudinary.search
-    .expression(`public_id: social_scrapbook_2/${eventtitle}`)
-    .execute()
-    .catch(err => {
-      console.log(err);
-    });
-
-  res.status(200).json(resources[0]);
-})
+router.get('/photo',
+  photoController.getPhoto,
+  (req, res, next) => {
+    res.status(200).json(res.locals.photoUrl);
+  }
+)
 
 // DELETE PHOTO FROM CLOUDINARY API
 

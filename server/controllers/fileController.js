@@ -12,7 +12,7 @@ fileController.createUser = (req, res, next) => { // ADD BACK ASYNC IF YOU TURN 
 
   const queryString1 = queries.userInfo;
   const queryValues1 = [email];
-  
+
   const queryString2 = queries.addUser;
   const queryValues2 = [email, given_name, family_name, picture];
 
@@ -45,7 +45,7 @@ fileController.createUser = (req, res, next) => { // ADD BACK ASYNC IF YOU TURN 
     });
 };
 
-fileController.getUser = (req, res, next) => { 
+fileController.getUser = (req, res, next) => {
   let decoded;
   if(!res.locals.token) {
     decoded = jwtDecode(req.cookies.user)
@@ -89,7 +89,7 @@ fileController.verifyUser = (req, res, next) => {
       log: `Error occurred with fileController.verifyUser`,
       code: 401,
       message: { err: "Unauthorized Access." },
-    })  
+    })
   }
 }
 

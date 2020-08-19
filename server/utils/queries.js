@@ -31,11 +31,11 @@ RETURNING username
 ;
 `;
 
-// QUERY FOR WHEN USER CREATES EVENT 
+// QUERY FOR WHEN USER CREATES EVENT
 queries.createEvent = `
 INSERT INTO events
-  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages)
-VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventpic)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 RETURNING eventid
 ;
 `;

@@ -69,12 +69,13 @@ eventController.createEvent = (req, res, next) => {
   const queryString = queries.createEvent;
 
   let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
+  let photoUrl = res.locals.photoUrl;
   console.log('eventController.createEvent ', req.body);
-  const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}"];
+  const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}", photoUrl];
   db.query(queryString, queryValues)
     .then(data => {
       console.log('>>> eventController.createEvent DATA ', data);
-      res.locals.eventID = data.rows[0];
+      res.locals.newEvent = data.rows[0];
       return next();
     })
     .catch(err => {
@@ -89,7 +90,7 @@ eventController.createEvent = (req, res, next) => {
 eventController.addNewEventToJoinTable = (req, res, next) => {
   console.log('eventController.addNewEventToJoinTable')
   const queryString = queries.addNewEventToJoinTable;
-  const queryValues = [res.locals.eventID.eventid]
+  const queryValues = [res.locals.newEvent.eventid]
   db.query(queryString, queryValues)
     .then(data => {
       res.locals.usersandevents = data.rows[0];
