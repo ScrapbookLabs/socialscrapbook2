@@ -5,15 +5,16 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faFeatherAlt, faInbox } from '@fortawesome/free-solid-svg-icons'
 import Inbox from './Inbox.jsx'
 
+
 export default function OurNavbar({ loggedIn, profilePhoto }) {
   
   // use react hook for state to render <Inbox /> conditionally
   const [inbox, setInbox] = useState(false);
-  
   // change state after button click
   const handleClickInbox = () => {
-   setInbox(!inbox)
+   setInbox(!inbox);
   }
+
 
   return (
   <Navbar expand="lg" className="myNavbar justify-content-between">
