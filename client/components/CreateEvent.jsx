@@ -142,7 +142,7 @@ export default function CreateEvent({ addEvent }) {
           </Form>
         </Modal.Body>
       </Modal>
-      {invite && <Invite />}
+      {/* {invite && <Invite />} */}
     </div>
   );
 }

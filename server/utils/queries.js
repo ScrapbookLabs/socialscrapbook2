@@ -80,9 +80,15 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
 ;
 `;
 
+queries.userEvents = `
+SELECT * FROM invitelist WHERE userid=$1
+`;
+
+
+
 
 // CREATE TABLE newInvite AS TABLE usersandevents WITH NO DATA;
 
-// SELECT * FROM invitelist;
+SELECT * FROM invitelist;
 
 module.exports = queries;
