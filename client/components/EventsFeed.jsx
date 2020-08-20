@@ -10,6 +10,8 @@ export default function EventsFeed(props) {
     feedEvents = props.events.map((event, index) => {
       return <Event
         {...event}
+        events = {props.events}
+        editEvent = {props.editEvent}
         deleteEvent = {props.deleteEvent}
         userUpdate={props.userUpdate}
         deletePhoto={props.deletePhoto}
