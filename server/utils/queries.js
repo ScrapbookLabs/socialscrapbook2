@@ -7,6 +7,7 @@ queries.getAllEvents = `
 SELECT * FROM events
 `;
 
+
 queries.getAttendeeEvents = `
 SELECT u.*, ue.eventid
 FROM usersandevents ue
@@ -107,11 +108,25 @@ queries.userEvents = `
 SELECT * FROM events WHERE userid=$1
 `;
 
+queries.inviteListGetOne = `
+SELECT * FROM invitelist WHERE username=$1 AND eventtitle=$2
+`;
+
+queries.inviteListRemove = `
+DELETE FROM invitelist WHERE username=$1 AND eventtitle=$2
+`;
+
+queries.addUserToEventnoEnd = `INSERT INTO usersandevents
+  (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventdetails, eventlocation)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING eventid
+;
+`;
+
 queries.getThisEvent =`
 SELECT * FROM events WHERE eventid=$1
 `;
 
-// SELECT * FROM invitelist;
 
 // DELETE SPECIFIC EVENTPIC URL FROM EVENT
 queries.deletePhoto = `
@@ -144,6 +159,7 @@ SELECT * FROM events
 WHERE eventtitle = $1;
 `;
 
+<<<<<<< HEAD
 queries.updateUsersAndEvents = 
 `UPDATE usersandevents SET eventtitle =$1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4`
 
@@ -152,5 +168,31 @@ queries.updateUsersAndEvents =
 queries.updateEvents = 
 `UPDATE events SET eventtitle = $1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4 `
 
+=======
+// ADD PHOTO TO EVENTPHOTOS
+queries.addDummyPhoto = `
+INSERT INTO eventphotos
+  (eventtitle, eventpic)
+VALUES($1, $2);
+`;
+
+// GET PHOTOS FROM EVENTPHOTOS
+queries.getDummyPhotos = `
+SELECT eventpic
+FROM eventphotos
+WHERE eventtitle = $1;
+`;
+
+// GET ALL PHOTOS FROM EVENTPHOTOS
+queries.getAllPhotos = `
+SELECT * FROM eventphotos;
+`;
+
+//DELETE SPECIFIC PHOTO FROM EVENTPHOTOS
+queries.deleteSQLPhoto = `
+DELETE FROM eventphotos
+WHERE eventpic = $1;
+`;
+>>>>>>> 34d63bc7abcd511c82d9a6d9d94b2bb3b9eba965
 
 module.exports = queries;
