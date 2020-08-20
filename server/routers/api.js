@@ -111,17 +111,17 @@ router.get('/photo',
 
 // DELETE PHOTO FROM CLOUDINARY API
 
-router.delete('/photo', 
-  photoController.deleteCloudinary, 
-  photoController.deleteFromSQL, 
+router.delete('/photo',
+  photoController.deleteCloudinary,
+  photoController.deleteFromSQL,
   (req, res, next) => {
   res.status(200).json({ cloudinary: res.locals.cloudresponse });
 })
 
-router.put('/photo', 
-photoController.uploadPhoto, 
-eventController.updatePhoto, 
-eventController.getOneEvent, 
+router.put('/photo',
+photoController.uploadPhoto,
+eventController.updatePhoto,
+eventController.getOneEvent,
 (req, res, next) => {
   res.status(200).json({ event : res.locals.event })
 })
@@ -140,17 +140,35 @@ router.get('/allphotos', async (req, res, next) => {
 })
 
 // GET ALL USERS FOR INVITE LIST
-router.post('/inviteListGet', inviteController.inviteListGet, (req, res) =>{
-  res.status(202).json({invites: res.locals.data})
+router.post('/inviteListGet',
+  inviteController.inviteListGet,
+  (req, res) =>{
+    res.status(202).json({invites: res.locals.data})
 })
 
-router.get('/invite', inviteController.userList, (req, res) =>{
-  res.status(202).json({users: res.locals.invite})
+router.post('/inviteFilter',
+  inviteController.userList,
+  eventController.getAttendeesOneEvent,
+  inviteController.pendingInvites,
+  inviteController.filterUsers,
+  (req, res) => {
+    res.status(202).json({users: res.locals.availableUsers})
 })
 
-router.post('/invite', inviteController.newInvite, (req, res) =>{
+router.post('/invite',
+  inviteController.newInvite,
+  (req, res) =>{
+    res.status(202)
+})
+
+router.post('/inviteAttend', inviteController.getDatafromInvite, inviteController.addInvitetoEvents, inviteController.removeFromInvite, (req, res) =>{
   res.status(202)
 })
+
+router.post('/inviteDecline', inviteController.removeFromInvite, (req, res) =>{
+  res.status(202)
+})
+
 //DELETE an event
 router.delete('/events/:id',
 

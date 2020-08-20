@@ -98,13 +98,34 @@ queries.inviteListGet = `
 SELECT * FROM invitelist WHERE userid=$1
 `;
 
+queries.inviteListEventGet = `
+SELECT * FROM invitelist WHERE eventtitle=$1
+`
+
 
 queries.userEvents = `
 SELECT * FROM events WHERE userid=$1
 `;
 
+queries.inviteListGetOne = `
+SELECT * FROM invitelist WHERE username=$1 AND eventtitle=$2
+`;
 
-// SELECT * FROM invitelist;
+queries.inviteListRemove = `
+DELETE FROM invitelist WHERE username=$1 AND eventtitle=$2
+`;
+
+queries.addUserToEventnoEnd = `INSERT INTO usersandevents
+  (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventdetails, eventlocation)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING eventid
+;
+`;
+
+queries.getThisEvent =`
+SELECT * FROM events WHERE eventid=$1
+`;
+
 
 // DELETE SPECIFIC EVENTPIC URL FROM EVENT
 queries.deletePhoto = `

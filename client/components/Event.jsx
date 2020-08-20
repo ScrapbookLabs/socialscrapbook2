@@ -13,18 +13,10 @@ export default function Event(props) {
   const [eventpic, setEventpic] = useState('');
   const [inviteView, setInviteView] = useState(false)
 
-  // useEffect(() => {
-  //   axios.get(`/api/photo?title=${props.eventtitle}`)
-  //     .then((res) => {
-  //       if (res.data) {
-  //         setEventpic(res.data.url);
-  //       }
-  //   })
-  // }, [])
-
   const handleClickInvite = () => {
-    setInviteView(!inviteView)
+    setInviteView(true)
   }
+
   const [show, setShow] = useState(false);
   const [previewSource, setPreviewSource] = useState('');
 
@@ -57,7 +49,7 @@ export default function Event(props) {
       <div className="event">
         <Container>
           <button onClick={handleClickInvite}>Invite Friends</button>
-        <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
+          <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
@@ -107,7 +99,7 @@ export default function Event(props) {
           </Modal.Body>
         </Modal>
       </div>
-      {inviteView && <Invite event={props.event} />}
+      {inviteView && <Invite eventtitle={props.eventtitle} event={props.event} setInviteView={setInviteView}/>}
     </>
   );
 }
