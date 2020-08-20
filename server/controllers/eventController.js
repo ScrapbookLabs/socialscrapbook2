@@ -307,7 +307,7 @@ eventController.deleteUsersAndEvents = (req, res, next) => {
 eventController.deleteEvent = (req, res, next) => {
   let values = Number(req.params.id)
     values = [values]
- 
+
   const deleteEvent = queries.deleteEvent
 
   db.query(deleteEvent,values)
@@ -366,6 +366,25 @@ eventController.getOneEvent = (req, res, next) => {
     .catch(err => {
       return next({
         log: `Error occurred with queries.getOneEvent OR eventController.getOneEvent middleware: ${err}`,
+        message: { err: "An error occured within request to get one event from SQL." },
+      });
+    })
+}
+
+eventController.getAttendeesOneEvent = (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const queryString = queries.selectEventAttendees;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      res.locals.thisEventAttendees = data.rows;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.selectEventAttendees OR eventController.getAttendeesOneEvent middleware: ${err}`,
         message: { err: "An error occured within request to get one event from SQL." },
       });
     })

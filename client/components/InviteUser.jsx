@@ -3,7 +3,7 @@ import { Modal, Button, Form, Card } from 'react-bootstrap';
 import axios from 'axios';
 
 export default function InviteUser(props) {
-  
+
   const [response, setResponse] = useState(false);
 
   const queryData = {};
@@ -31,30 +31,29 @@ export default function InviteUser(props) {
 
   const handleClickInvite = () => {
     // have userid and username
-    console.log('works')
-    console.log(queryData)
-    setResponse(true)
+    console.log(queryData);
+    setResponse(true);
 
     fetch('/api/invite', {
       method: 'POST',
       body: JSON.stringify(queryData),
-      headers: { 
-        'Content-Type': 'application/json' 
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
   }
 
   return (
-    <div key={props.forKey} className='inviteFriendContainer'>
+    <div className='inviteFriendContainer'>
       <span className='inviteFriendPhoto'>Photo  </span>
       <span className='inviteFriendFirstName'>{props.user.firstname}</span>
       <span className='inviteFriendLastName'>{props.user.lastname}</span>
       <span className='inviteFriendButton'>
-        {!response && 
-          <button className='inviteUser' onClick={handleClickInvite}>Invite</button>
+        {!response &&
+          <Button variant="primary" onClick={handleClickInvite}>Invite</Button>
         }
         {response &&
-          <button className='inviteMadeUser'>Invited!</button>
+          <Button variant="secondary">Invited!</Button>
         }
       </span>
     </div>

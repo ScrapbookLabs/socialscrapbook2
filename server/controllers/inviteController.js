@@ -14,12 +14,49 @@ inviteController.userList = (req, res, next) => {
       console.log(data.rows)
       res.locals.invite = data.rows
     }
-    next()
+    next();
   })
   .catch((err)=>{
-    console.log('err', err)
+    console.log('err', err);
   })
-} 
+}
+
+inviteController.pendingInvites = (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const queryString = queries.inviteListEventGet;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log(data.rows);
+      res.locals.pendingInvites = data.rows;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListEventGet OR inviteController.pendingInvites middleware: ${err}`,
+        message: { err: "An error occured within request to get one event from SQL." },
+      });
+    })
+}
+
+inviteController.filterUsers = async (req, res, next) => {
+  res.locals.availableUsers = await res.locals.invite.filter(user => {
+    for (let attendee of res.locals.thisEventAttendees) {
+      if (Number(attendee.userid) === user.userid) {
+        return false;
+      }
+    }
+    for (let invitee of res.locals.pendingInvites) {
+      if (Number(invitee.userid) === user.userid) {
+        return false;
+      }
+    }
+    return true;
+  })
+  return next();
+}
 
 inviteController.newInvite = (req, res, next) => {
   let {userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation} = req.body
@@ -27,9 +64,8 @@ inviteController.newInvite = (req, res, next) => {
   db.query(addInvite, values)
     .then((data)=>{
       console.log(data)
-      console.log('adding to invite table working')
     })
-} 
+}
 
 // inviteController.InviteList = (req, res, next) => {
 //   let {username} = req.body
@@ -39,7 +75,7 @@ inviteController.newInvite = (req, res, next) => {
 //       console.log(data)
 //       console.log('adding to invite table working')
 //     })
-// } 
+// }
 
 inviteController.inviteListGet = (req, res, next) => {
   let {userid} = req.body
@@ -51,7 +87,7 @@ inviteController.inviteListGet = (req, res, next) => {
       res.locals.data = data.rows;
       next()
     })
-} 
+}
 
 
 module.exports = inviteController;
