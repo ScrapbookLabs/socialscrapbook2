@@ -98,11 +98,18 @@ queries.inviteListGet = `
 SELECT * FROM invitelist WHERE userid=$1
 `;
 
+queries.inviteListEventGet = `
+SELECT * FROM invitelist WHERE eventtitle=$1
+`
+
 
 queries.userEvents = `
 SELECT * FROM events WHERE userid=$1
 `;
 
+queries.getThisEvent =`
+SELECT * FROM events WHERE eventid=$1
+`;
 
 // SELECT * FROM invitelist;
 
