@@ -16,8 +16,11 @@ inviteController.userList = (req, res, next) => {
     }
     next();
   })
-  .catch((err)=>{
-    console.log('err', err);
+  .catch(err => {
+    return next({
+      log: `Error occurred with queries.getAllUsers OR inviteController.userList middleware: ${err}`,
+      message: { err: "An error occured within request to get user list from SQL." },
+    });
   })
 }
 
@@ -65,6 +68,12 @@ inviteController.newInvite = (req, res, next) => {
     .then((data)=>{
       console.log(data)
     })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.addInvite OR inviteController.newInvite middleware: ${err}`,
+        message: { err: "An error occured within request to add invite to SQL." },
+      });
+    })
 }
 
 inviteController.inviteListGet = (req, res, next) => {
@@ -76,6 +85,12 @@ inviteController.inviteListGet = (req, res, next) => {
       console.log('got all users invites')
       res.locals.data = data.rows;
       next()
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListGet OR inviteController.inviteListGet middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
     })
 }
 
@@ -91,6 +106,12 @@ inviteController.getDatafromInvite = (req, res, next) => {
       res.locals.data = data.rows[0];
       next()
     })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListGetOne OR inviteController.getDatafromInvite middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
+    })
 }
 
 inviteController.addInvitetoEvents = (req, res, next) => {
@@ -102,6 +123,12 @@ inviteController.addInvitetoEvents = (req, res, next) => {
     .then((data)=>{
       next()
     })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.addUserToEvent OR inviteController.addInvitetoEvents middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
+    })
 }
 
 inviteController.removeFromInvite = (req, res, next) => {
@@ -111,6 +138,12 @@ inviteController.removeFromInvite = (req, res, next) => {
   db.query(queries.inviteListRemove, values)
     .then((data)=>{
       next()
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListRemove OR inviteController.removeFromInvite middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
     })
 }
 

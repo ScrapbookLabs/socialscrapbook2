@@ -5,6 +5,9 @@ export default function Inbox(props) {
   const {username, userid} = props.user
   
   const [inviteData, setInviteData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [inviteIndexShow, setinviteIndexShow] = useState([]);
+
 
   useEffect(() => {
     axios.post('/api/inviteListGet', {
@@ -15,10 +18,14 @@ export default function Inbox(props) {
         console.log(res.data.invites)
         const response = res.data.invites;
         const eventNames = [];
+        const eventView = [];
         response.forEach((el)=>{
           eventNames.push(el.eventtitle)
+          eventView.push(true)
         })
-        setInviteData(eventNames)
+        setLoading(false)
+        setInviteData(eventNames);
+        setinviteIndexShow(eventView);
       })
   }, []);
 
@@ -34,10 +41,10 @@ export default function Inbox(props) {
     })
   }
     
-  if (false) {
+  if (loading) {
     return (
-      <div>
-        There are no pending events
+      <div className='inboxContainer'>
+        Loading...
       </div>
     )
   } else {
@@ -61,8 +68,11 @@ export default function Inbox(props) {
       )
     })
     return (
-      <div id='inboxContainer'>
-        {eventList}
+      <div className='inboxContainer'>
+        {inviteData[0] && eventList}
+        {!inviteData[0] && 
+          <div>There are no pending invitations</div>
+        }
       </div>
     )
   }
