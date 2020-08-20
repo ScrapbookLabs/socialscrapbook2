@@ -70,6 +70,7 @@ router.post('/create',
   fileController.getUser,
   eventController.createEvent,
   eventController.addNewEventToJoinTable,
+  eventController.addDummyToSQL,
   (req, res) => {
     return res.status(200).json({newEvent: res.locals.newEvent, eventpic: res.locals.photoUrl});
   });
@@ -94,7 +95,8 @@ router.get('/events', // SWITCH THIS TO A GET REQUEST!!
 // UPLOAD A PHOTO TO CLOUDINARY API
 
 router.post('/photo',
-  photoController.uploadPhoto,
+  // photoController.uploadPhoto,
+  photoController.uploadDummyPhoto,
   (req, res, next) => {
     return res.status(200).json(res.locals.eventpic)
   }
@@ -162,11 +164,16 @@ router.delete('/events/:id',
 )
 
 
-router.post('/dummy', photoController.uploadDummyPhoto, photoController.addDummyToSQL, (req, res, next) => {
+router.post('/dummy', 
+photoController.uploadDummyPhoto, 
+photoController.addDummyToSQL, 
+(req, res, next) => {
   return res.status(200).json(res.locals.photoUrl);
 })
 // photoController.getDummyPhotoByTag
-router.get('/dummy/:tag', photoController.getDummyPhotosSQL, (req, res, next) => {
+router.get('/dummy/:tag', 
+photoController.getDummyPhotosSQL, 
+(req, res, next) => {
   return res.status(200).json(res.locals.photoUrl);
 })
 

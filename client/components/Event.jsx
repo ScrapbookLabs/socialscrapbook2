@@ -62,8 +62,8 @@ export default function Event(props) {
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
               <div className="coverPhotoContainer">
-                {props.eventpic ? (
-                  <CoverPhoto deletePhoto={props.deletePhoto} handleShow={handleShow} eventtitle={props.eventtitle} eventpic={props.eventpic} />
+                {props.eventphotos[0] ? (
+                  <CoverPhoto deletePhoto={props.deletePhoto} handleShow={handleShow} eventtitle={props.eventtitle} eventphotos={props.eventphotos} />
                 ) : (
                   <Button variant="primary" onClick={handleShow} >Add Photo</Button>
                 )}

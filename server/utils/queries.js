@@ -7,6 +7,7 @@ queries.getAllEvents = `
 SELECT * FROM events
 `;
 
+
 queries.getAttendeeEvents = `
 SELECT u.*, ue.eventid
 FROM usersandevents ue
@@ -148,7 +149,12 @@ VALUES($1, $2);
 queries.getDummyPhotos = `
 SELECT eventpic
 FROM eventphotos
-WHERE eventtitle = $1
+WHERE eventtitle = $1;
+`;
+
+// GET ALL PHOTOS FROM EVENTPHOTOS
+queries.getAllPhotos = `
+SELECT * FROM eventphotos;
 `;
 
 module.exports = queries;

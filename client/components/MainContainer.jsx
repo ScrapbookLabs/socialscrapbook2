@@ -69,7 +69,7 @@ export default function MainContainer() {
 
   // handles delete 
   function handleDeletePhoto(eventtitle, url) {
-    const lessEvents = events.map(event => {
+    const lessEvents = events.map(event => { // need to change this for albums (immediate delete)
       if (event.eventtitle === eventtitle) {
         return {...event, eventpic: null}
       } else {

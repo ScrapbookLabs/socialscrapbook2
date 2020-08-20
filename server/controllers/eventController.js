@@ -200,9 +200,27 @@ eventController.allEvents = (req, res, next) => {
             e.attendees = attendees;
             return e;
           })
+
+          const photoQueryString = queries.getAllPhotos;
+          // const queryValues = [];
+          db.query(photoQueryString).then(allphotos => {
+            // console.log('inside photo query ', allphotos.rows)
+            const allinfo = mergedTable.map(ev => {
+              const filtered = allphotos.rows.filter(photo => photo.eventtitle == ev.eventtitle);
+              // console.log('I got the photos!!', filtered);
+              const photos = filtered.reduce((acc, cur) => acc.concat([cur.eventpic]), [])
+              // console.log(photos);
+              ev.eventphotos = photos;
+              console.log(photos)
+              return ev;
+            })
+            // console.log(allinfo)
+            res.locals.allEventsInfo = allinfo;
+            return next();
+          })
           // console.log('all events info ', mergedTable)
-          res.locals.allEventsInfo = mergedTable
-          return next();
+          
+          // used to have alleventsinfo saved with mergedTable
         })
       }
 
@@ -367,6 +385,53 @@ eventController.getOneEvent = (req, res, next) => {
       return next({
         log: `Error occurred with queries.getOneEvent OR eventController.getOneEvent middleware: ${err}`,
         message: { err: "An error occured within request to get one event from SQL." },
+      });
+    })
+}
+
+eventController.getEventDummy = (req, res, next) => {
+
+  const queryString = queries.getAllEvents;
+  //pulls all events
+  db.query(queryString)
+    .then(data => {
+      if (!data.rows) {
+        res.locals.allEventsInfo = [];
+      } else {
+        // then grabs all the attendees from the user and events table joined with the user table
+        const eventAndUserDataQueryString = queries.getAttendeeEvents;
+        db.query(eventAndUserDataQueryString).then(eventAndUserData => {
+          // goes through the table and creates an attendees array with the list of user data
+          const mergedTable = data.rows.map(e => {
+            const attendees = eventAndUserData.rows.filter(entry => entry.eventid == e.eventid)
+            e.attendees = attendees;
+            return e;
+          })
+
+          const photoQueryString = queries.getAllPhotos;
+          // const queryValues = [];
+          db.query(photoQueryString).then(allphotos => {
+            console.log('inside photo query ', allphotos.rows)
+            const allinfo = mergedTable.map(e => {
+              const photos = allphotos.rows.filter(photo => photo.eventtitle == e.eventtitle);
+              console.log('I got the photos!!', photos);
+              
+            })
+          })
+          // console.log('all events info ', mergedTable)
+
+
+          res.locals.allEventsInfo = mergedTable
+          return next();
+        })
+          
+      }
+
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.getAllEvents OR eventController.allEvents middleware: ${err}`,
+        message: { err: "An error occured with SQL when retrieving all events information." },
       });
     })
 }

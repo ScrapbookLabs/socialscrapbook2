@@ -6,6 +6,19 @@ import { faWindowClose, faArrowCircleUp } from '@fortawesome/free-solid-svg-icon
 export default function CoverPhoto(props) {
 
   const [showHud, setShowHud] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  function nextPhoto() {
+    if (props.eventphotos[photoIndex + 1]) {
+      setPhotoIndex(photoIndex+1);
+    }
+  }
+
+  function prevPhoto() {
+    if (props.eventphotos[photoIndex - 1]) {
+      setPhotoIndex(photoIndex - 1);
+    }
+  }
 
   return (
     <div
@@ -14,6 +27,7 @@ export default function CoverPhoto(props) {
       onMouseLeave={() => setShowHud(false)}
     >
       {showHud && (<div>
+        <Button onClick={prevPhoto}>Previous</Button>
         <div className="hudBackground">
           <FontAwesomeIcon className="newPhotoButton" icon={faArrowCircleUp} onClick={props.handleShow}/>
           <FontAwesomeIcon 
@@ -22,9 +36,10 @@ export default function CoverPhoto(props) {
           onClick={() => props.deletePhoto(props.eventtitle, props.eventpic)} 
           />
         </div>
+        <Button onClick={nextPhoto}>Next</Button>
       </div>)}
       <img
-        src={props.eventpic}
+        src={props.eventphoto[photoIndex]}
         alt="eventpic"
       />
     </div>

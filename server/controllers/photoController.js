@@ -97,8 +97,9 @@ photoController.addDummyToSQL = (req, res, next) => {
   db.query(queryString, queryValues)
     .then(data => {
       console.log('response from sql when adding photo to join ', data);
-      return next();
     })
+    
+  return next();
 }
 
 // GETS PHOTO BY TAG FROM CLOUDINARY
