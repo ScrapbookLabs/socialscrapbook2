@@ -69,6 +69,20 @@ DROP TABLE users;
 // GET ALL USERS
 queries.getAllUsers = `
 SELECT * FROM users
+;
 `;
+
+// ADD ENTRY TO INVITE TABLE
+queries.addInvite = `
+INSERT INTO invite
+  (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+;
+`;
+
+
+
+
+
 
 module.exports = queries;

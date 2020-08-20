@@ -148,5 +148,8 @@ router.get('/invite', inviteController.userList, (req, res) =>{
   res.status(202).json({users: res.locals.invite})
 })
 
+router.post('/invite', inviteController.newInvite, (req, res) =>{
+  res.status(202)
+})
 
 module.exports = router;
