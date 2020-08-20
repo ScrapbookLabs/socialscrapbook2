@@ -54,4 +54,41 @@ inviteController.inviteListGet = (req, res, next) => {
 } 
 
 
+inviteController.getDatafromInvite = (req, res, next) => {
+  let {username, eventtitle} = req.body;
+  // do a query to get the relevant data from invite table, and then add said data to the eventsandusers
+  let values = [username, eventtitle];
+  db.query(queries.inviteListGetOne, values)
+    .then((data)=>{
+      console.log(data.rows[0])
+      console.log('got all data from specific event to response')
+      res.locals.data = data.rows[0];
+      next()
+    })
+}
+
+inviteController.addInvitetoEvents = (req, res, next) => {
+  let {userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation} = res.locals.data
+  console.log('GOT DATABACK FROM INVITELIST GETONE')
+  let values = [userid, username, eventid, eventtitle, eventdate, eventstarttime, eventstarttime, eventdetails, eventlocation];
+  
+  db.query(queries.addUserToEvent, values)
+    .then((data)=>{
+      next()
+    })
+}
+
+inviteController.removeFromInvite = (req, res, next) => {
+  let {username, eventtitle} = req.body;
+  let values = [username, eventtitle];
+  
+  db.query(queries.inviteListRemove, values)
+    .then((data)=>{
+      next()
+    })
+}
+
+
+
+
 module.exports = inviteController;

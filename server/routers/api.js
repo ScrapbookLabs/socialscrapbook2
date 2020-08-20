@@ -151,6 +151,15 @@ router.get('/invite', inviteController.userList, (req, res) =>{
 router.post('/invite', inviteController.newInvite, (req, res) =>{
   res.status(202)
 })
+
+router.post('/inviteAttend', inviteController.getDatafromInvite, inviteController.addInvitetoEvents, inviteController.removeFromInvite, (req, res) =>{
+  res.status(202)
+})
+
+router.post('/inviteDecline', inviteController.removeFromInvite, (req, res) =>{
+  res.status(202)
+})
+
 //DELETE an event
 router.delete('/events/:id',
 

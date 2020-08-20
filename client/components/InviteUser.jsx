@@ -17,7 +17,6 @@ export default function InviteUser(props) {
   queryData.eventdetails = props.event.eventdetails
   queryData.eventlocation = props.event.eventlocation
 
-
   // "uselessid" serial PRIMARY KEY,
   //   "userid" bigint NOT NULL,
   //   "username" varchar NOT NULL,
@@ -42,6 +41,9 @@ export default function InviteUser(props) {
         'Content-Type': 'application/json' 
       }
     })
+    // axios.post('/api/invite', {
+    //   queryData
+    // })
   }
 
   return (

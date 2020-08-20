@@ -5,10 +5,6 @@ export default function Inbox(props) {
   
   const [inviteData, setInviteData] = useState([]);
 
-  // "eventsFetchRes" is dummy for 'get' fetch to the pending events table 
-  const eventsFetchRes = ['event1', 'event2', 'event3']
-  
-
   useEffect(() => {
     fetch('/api/inviteListGet', {
       method: 'POST',
@@ -33,32 +29,27 @@ export default function Inbox(props) {
   }, []);
 
 
-  const handleClickAttend = () => {
-    console.log(username)
-    // add event to their event
-    // remove entry from invitelist
-
-    // fetch('/api/inviteListRem', {
-    //   method: 'POST',
-    //   body: JSON.stringify({userid: userid}),
-    //   headers: { 
-    //     'Content-Type': 'application/json' 
-    //   }
-    // })
+  const handleClickAttend = (eventtitle) => {
+    fetch('/api/inviteAttend', {
+      method: 'POST',
+      body: JSON.stringify({username, eventtitle}),
+      headers: { 
+        'Content-Type': 'application/json' 
+      }
+    })
   }
 
-  const handleClickDecline = () => {
-    // remove entry from invitelist
-    // fetch('/api/inviteListRem', {
-    //   method: 'POST',
-    //   body: JSON.stringify({userid: userid}),
-    //   headers: { 
-    //     'Content-Type': 'application/json' 
-    //   }
-    // })
+  const handleClickDecline = (eventtitle) => {
+    fetch('/api/inviteDecline', {
+      method: 'POST',
+      body: JSON.stringify({username, eventtitle}),
+      headers: { 
+        'Content-Type': 'application/json' 
+      }
+    })
   }
     
-  if (!eventsFetchRes) {
+  if (false) {
     return (
       <div>
         There are no pending events
@@ -75,10 +66,10 @@ export default function Inbox(props) {
           </div>
           <div className='inboxButtons'>
             <span>
-              <button className="inboxSubmitAttend" onClick={handleClickAttend}>Attend</button>
+              <button className="inboxSubmitAttend" onClick={()=>{handleClickAttend(el)}}>Attend</button>
             </span>
             <span>
-              <button className="inboxSubmitDecline" onClick={handleClickDecline}>Decline</button>
+              <button className="inboxSubmitDecline" onClick={()=>{handleClickDecline(el)}}>Decline</button>
             </span>
           </div>
         </div>
