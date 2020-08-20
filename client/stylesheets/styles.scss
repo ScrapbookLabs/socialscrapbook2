@@ -353,7 +353,7 @@ $barsize: 15px;
   }
 }
 
-#inboxContainer {
+.inboxContainer {
   position: absolute;
   top: 150px;
   right: 50px;
@@ -388,8 +388,11 @@ $barsize: 15px;
   display: flex;
 }
 
-#inviteHeader {
-  font-size: 20px;
+/* InviteUder.jsx */
+
+.inviteFriendContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .inviteFriendFirstName {
@@ -398,13 +401,4 @@ $barsize: 15px;
 
 .inviteFriendLastName {
   margin-right: 5px;
-}
-
-.inviteUser {
-  background-color: blue;
-  color: white
-}
-
-.inviteMadeUser {
-  background-color: green;;
 }

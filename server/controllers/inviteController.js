@@ -14,12 +14,52 @@ inviteController.userList = (req, res, next) => {
       console.log(data.rows)
       res.locals.invite = data.rows
     }
-    next()
+    next();
   })
-  .catch((err)=>{
-    console.log('err', err)
+  .catch(err => {
+    return next({
+      log: `Error occurred with queries.getAllUsers OR inviteController.userList middleware: ${err}`,
+      message: { err: "An error occured within request to get user list from SQL." },
+    });
   })
-} 
+}
+
+inviteController.pendingInvites = (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const queryString = queries.inviteListEventGet;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log(data.rows);
+      res.locals.pendingInvites = data.rows;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListEventGet OR inviteController.pendingInvites middleware: ${err}`,
+        message: { err: "An error occured within request to get one event from SQL." },
+      });
+    })
+}
+
+inviteController.filterUsers = async (req, res, next) => {
+  res.locals.availableUsers = await res.locals.invite.filter(user => {
+    for (let attendee of res.locals.thisEventAttendees) {
+      if (Number(attendee.userid) === user.userid) {
+        return false;
+      }
+    }
+    for (let invitee of res.locals.pendingInvites) {
+      if (Number(invitee.userid) === user.userid) {
+        return false;
+      }
+    }
+    return true;
+  })
+  return next();
+}
 
 inviteController.newInvite = (req, res, next) => {
   let {userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation} = req.body
@@ -27,19 +67,14 @@ inviteController.newInvite = (req, res, next) => {
   db.query(addInvite, values)
     .then((data)=>{
       console.log(data)
-      console.log('adding to invite table working')
     })
-} 
-
-// inviteController.InviteList = (req, res, next) => {
-//   let {username} = req.body
-//   let values = [username];
-//   db.query(addInvite, values)
-//     .then((data)=>{
-//       console.log(data)
-//       console.log('adding to invite table working')
-//     })
-// } 
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.addInvite OR inviteController.newInvite middleware: ${err}`,
+        message: { err: "An error occured within request to add invite to SQL." },
+      });
+    })
+}
 
 inviteController.inviteListGet = (req, res, next) => {
   let {userid} = req.body
@@ -51,7 +86,68 @@ inviteController.inviteListGet = (req, res, next) => {
       res.locals.data = data.rows;
       next()
     })
-} 
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListGet OR inviteController.inviteListGet middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
+    })
+}
+
+
+inviteController.getDatafromInvite = (req, res, next) => {
+  let {username, eventtitle} = req.body;
+  // do a query to get the relevant data from invite table, and then add said data to the eventsandusers
+  let values = [username, eventtitle];
+  db.query(queries.inviteListGetOne, values)
+    .then((data)=>{
+      console.log(data.rows[0])
+      console.log('got all data from specific event to response')
+      res.locals.data = data.rows[0];
+      next()
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListGetOne OR inviteController.getDatafromInvite middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
+    })
+}
+
+inviteController.addInvitetoEvents = (req, res, next) => {
+  let {userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation} = res.locals.data
+  console.log('GOT DATABACK FROM INVITELIST GETONE')
+  let values = [userid, username, eventid, eventtitle, eventdate, eventstarttime, eventstarttime, eventdetails, eventlocation];
+  
+  db.query(queries.addUserToEvent, values)
+    .then((data)=>{
+      next()
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.addUserToEvent OR inviteController.addInvitetoEvents middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
+    })
+}
+
+inviteController.removeFromInvite = (req, res, next) => {
+  let {username, eventtitle} = req.body;
+  let values = [username, eventtitle];
+  
+  db.query(queries.inviteListRemove, values)
+    .then((data)=>{
+      next()
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.inviteListRemove OR inviteController.removeFromInvite middleware: ${err}`,
+        message: { err: "An error occured within request to get data from SQL." },
+      });
+    })
+}
+
+
 
 
 module.exports = inviteController;

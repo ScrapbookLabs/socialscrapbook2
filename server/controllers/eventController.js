@@ -326,7 +326,7 @@ eventController.deleteUsersAndEvents = (req, res, next) => {
 eventController.deleteEvent = (req, res, next) => {
   let values = Number(req.params.id)
     values = [values]
- 
+
   const deleteEvent = queries.deleteEvent
 
   db.query(deleteEvent,values)
@@ -390,49 +390,68 @@ eventController.getOneEvent = (req, res, next) => {
     })
 }
 
-eventController.getEventDummy = (req, res, next) => {
+// eventController.getEventDummy = (req, res, next) => {
 
-  const queryString = queries.getAllEvents;
-  //pulls all events
-  db.query(queryString)
-    .then(data => {
-      if (!data.rows) {
-        res.locals.allEventsInfo = [];
-      } else {
-        // then grabs all the attendees from the user and events table joined with the user table
-        const eventAndUserDataQueryString = queries.getAttendeeEvents;
-        db.query(eventAndUserDataQueryString).then(eventAndUserData => {
-          // goes through the table and creates an attendees array with the list of user data
-          const mergedTable = data.rows.map(e => {
-            const attendees = eventAndUserData.rows.filter(entry => entry.eventid == e.eventid)
-            e.attendees = attendees;
-            return e;
-          })
+//   const queryString = queries.getAllEvents;
+//   //pulls all events
+//   db.query(queryString)
+//     .then(data => {
+//       if (!data.rows) {
+//         res.locals.allEventsInfo = [];
+//       } else {
+//         // then grabs all the attendees from the user and events table joined with the user table
+//         const eventAndUserDataQueryString = queries.getAttendeeEvents;
+//         db.query(eventAndUserDataQueryString).then(eventAndUserData => {
+//           // goes through the table and creates an attendees array with the list of user data
+//           const mergedTable = data.rows.map(e => {
+//             const attendees = eventAndUserData.rows.filter(entry => entry.eventid == e.eventid)
+//             e.attendees = attendees;
+//             return e;
+//           })
 
-          const photoQueryString = queries.getAllPhotos;
-          // const queryValues = [];
-          db.query(photoQueryString).then(allphotos => {
-            console.log('inside photo query ', allphotos.rows)
-            const allinfo = mergedTable.map(e => {
-              const photos = allphotos.rows.filter(photo => photo.eventtitle == e.eventtitle);
-              console.log('I got the photos!!', photos);
+//           const photoQueryString = queries.getAllPhotos;
+//           // const queryValues = [];
+//           db.query(photoQueryString).then(allphotos => {
+//             console.log('inside photo query ', allphotos.rows)
+//             const allinfo = mergedTable.map(e => {
+//               const photos = allphotos.rows.filter(photo => photo.eventtitle == e.eventtitle);
+//               console.log('I got the photos!!', photos);
               
-            })
-          })
-          // console.log('all events info ', mergedTable)
+//             })
+//           })
+//           // console.log('all events info ', mergedTable)
 
 
-          res.locals.allEventsInfo = mergedTable
-          return next();
-        })
+//           res.locals.allEventsInfo = mergedTable
+//           return next();
+//         })
           
-      }
+//       }
 
+//     })
+//     .catch(err => {
+//       return next({
+//         log: `Error occurred with queries.getAllEvents OR eventController.allEvents middleware: ${err}`,
+//         message: { err: "An error occured with SQL when retrieving all events information." },
+//       })
+//     }
+// }
+
+eventController.getAttendeesOneEvent = (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const queryString = queries.selectEventAttendees;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      res.locals.thisEventAttendees = data.rows;
+      return next();
     })
     .catch(err => {
       return next({
-        log: `Error occurred with queries.getAllEvents OR eventController.allEvents middleware: ${err}`,
-        message: { err: "An error occured with SQL when retrieving all events information." },
+        log: `Error occurred with queries.selectEventAttendees OR eventController.getAttendeesOneEvent middleware: ${err}`,
+        message: { err: "An error occured within request to get one event from SQL." },
       });
     })
 }
