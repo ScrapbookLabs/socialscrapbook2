@@ -6,6 +6,10 @@ const { cloudinary } = require('../utils/cloudinary.js');
 const photoController = {};
 
 photoController.uploadPhoto = (req, res, next) => {
+  if (!req.body.eventpic) {
+    return next();
+  }
+
   try {
     const fileStr = req.body.eventpic;
     const { eventtitle } = req.body;

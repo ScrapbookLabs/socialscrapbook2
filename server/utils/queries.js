@@ -40,6 +40,15 @@ RETURNING eventid
 ;
 `;
 
+// QUERY FOR WHEN USER CREATES EVENT WITHOUT PHOTO
+queries.createEventWithoutPhoto = `
+INSERT INTO events
+  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventpic)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, NULL)
+RETURNING eventid
+;
+`;
+
 // ADDS ALL CURRENT EVENTS TO USERSANDEVENTS
 queries.addNewEventToJoinTable = `
 INSERT INTO usersandevents (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)

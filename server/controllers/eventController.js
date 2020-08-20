@@ -65,23 +65,32 @@ eventController.getAllAttendees = async (req, res, next) => {
 eventController.createEvent = (req, res, next) => {
   const { userid, username } = res.locals.allUserInfo;
   let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
-  let photoUrl = res.locals.photoUrl;
 
-  const queryString = queries.createEvent;
-  const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}", photoUrl];
-  db.query(queryString, queryValues)
-    .then(data => {
-      // console.log('>>> eventController.createEvent DATA ', data);
-      res.locals.newEvent = data.rows[0];
-      return next();
-    })
-    .catch(err => {
-      console.log('>>> eventController.createEvent ERR ', err);
-      return next({
-        log: `Error occurred with queries.createEvent OR eventController.createEvent middleware: ${err}`,
-        message: { err: "An error occured with SQL when creating event." },
-      });
-    })
+  let queryString;
+  let queryValues;
+
+  if (res.locals.photoUrl) {
+    const { photoUrl } = res.locals;
+    queryString = queries.createEvent;
+    queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}", photoUrl];
+  } else {
+    queryString = queries.createEventWithoutPhoto;
+    queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}"];
+  }
+
+    db.query(queryString, queryValues)
+      .then(data => {
+        // console.log('>>> eventController.createEvent DATA ', data);
+        res.locals.newEvent = data.rows[0];
+        return next();
+      })
+      .catch(err => {
+        console.log('>>> eventController.createEvent ERR ', err);
+        return next({
+          log: `Error occurred with queries.createEvent OR eventController.createEvent middleware: ${err}`,
+          message: { err: "An error occured with SQL when creating event." },
+        });
+      })
 };
 
 eventController.addNewEventToJoinTable = (req, res, next) => {
