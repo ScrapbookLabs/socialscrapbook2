@@ -8,16 +8,21 @@ export default function Invite(props) {
   const [friends, setFriends] = useState([]);
   const [friendsData, setFriendsData] = useState([]);
 
-  const handleClickClose = () => setShow(false);
+  const handleClickClose = () => {
+    setShow(false);
+    setTimeout(() => {
+      props.setInviteView(false);
+    }, 250)
+  };
 
   useEffect(() => {
-    axios('/api/invite')
+    axios.post('/api/inviteFilter', { eventtitle: props.eventtitle })
       .then((res)=>{
         const resUsers = res.data.users
         setFriendsData(res.data.users)
         setFriends(resUsers.map((el, i)=>{
           return (
-            <InviteUser forKey={`invite${i}`} event={props.event} user={el} users={res.data.users} />
+            <InviteUser key={`invite${i}`} event={props.event} user={el} users={res.data.users} />
           )
         }))
       })
@@ -25,10 +30,12 @@ export default function Invite(props) {
 
   return (
     <div>
-      <Modal show={show}>
+      <Modal show={show} onHide={handleClickClose} animation={true}>
+        <Modal.Header closeButton>
+          <Modal.Title>Invite Friends to this Event!</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <div className='inviteContainer'>
-            <h1 id='inviteHeader'>Invite Friends to your Event</h1>
             <div className='inviteScrollContainer'>
               {friends}
             </div>

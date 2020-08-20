@@ -98,6 +98,10 @@ queries.inviteListGet = `
 SELECT * FROM invitelist WHERE userid=$1
 `;
 
+queries.inviteListEventGet = `
+SELECT * FROM invitelist WHERE eventtitle=$1
+`
+
 
 queries.userEvents = `
 SELECT * FROM events WHERE userid=$1
@@ -118,6 +122,9 @@ RETURNING eventid
 ;
 `;
 
+queries.getThisEvent =`
+SELECT * FROM events WHERE eventid=$1
+`;
 
 
 // DELETE SPECIFIC EVENTPIC URL FROM EVENT
