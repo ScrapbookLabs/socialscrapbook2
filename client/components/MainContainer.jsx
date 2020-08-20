@@ -214,8 +214,8 @@ export default function MainContainer() {
         <Container className="header">
           {/* <Profile {...user} /> */}
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
-          <Button onClick={handleShow}>DUMMY UPLOAD</Button>
-          <Button onClick={handleShoww} >Search By Tag Dummy</Button>
+          {/* <Button onClick={handleShow}>DUMMY UPLOAD</Button>
+          <Button onClick={handleShoww} >Search By Tag Dummy</Button> */}
         </Container>
         <EventsFeed
           deleteEvent ={deleteEvent}
