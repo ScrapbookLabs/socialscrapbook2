@@ -3,7 +3,7 @@ import Profile from './Profile.jsx';
 import EventsFeed from './EventsFeed.jsx';
 import Navbar from './Navbar.jsx';
 import axios from 'axios';
-import { Card, Button, Col, Row, Container } from 'react-bootstrap';
+import { Card, Button, Col, Row, Container, Modal, Form } from 'react-bootstrap';
 import AddSearchEvent from './AddSearchEvent.jsx';
 
 // Implemented with hooks throughout
@@ -68,10 +68,14 @@ export default function MainContainer() {
   }
 
   // handles delete 
-  function handleDeletePhoto(eventtitle, url) {
-    const lessEvents = events.map(event => {
+  function handleDeletePhoto(eventtitle, index, url) {
+    const lessEvents = events.map(event => { // need to change this for albums (immediate delete)
       if (event.eventtitle === eventtitle) {
-        return {...event, eventpic: null}
+        const copy = event.eventphotos.slice();
+        console.log(copy)
+        copy.splice(index, 1)
+        console.log(copy)
+        return {...event, eventphotos: copy}
       } else {
         return event;
       }
@@ -110,6 +114,16 @@ export default function MainContainer() {
 
   // handles updating photos to existing events
   function handlePhotoUpdate(eventtitle, source) {
+    // console.log('got into handle photo update main')
+    // const updatedEvents = events.map(event => {
+    //   if (event.eventtitle === eventtitle) {
+    //     event.eventphotos.push(source);
+    //   } else return event
+    // });
+
+    // setEvents(updatedEvents);
+
+
     axios.put('/api/photo', {
       eventtitle,
       eventpic: source
@@ -126,6 +140,72 @@ export default function MainContainer() {
       });
   }
 
+  function addPhoto() {
+    // need
+  }
+
+
+
+
+
+  // const [show, setShow] = useState(false);
+  // const [showw, setShoww] = useState(false);
+  // const [tag, setTag] = useState('');
+  // const [previewSource, setPreviewSource] = useState('');
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   // DUMMY
+  //   const faketitle = 'Here';
+
+  //   axios.post('/api/dummy', { eventpic: previewSource, eventtitle: faketitle })
+  //     .then(response => {
+  //       console.log('response on front end from all back end stuff ', response.data)
+  //     })
+    
+  //   handleClose();
+  // };
+
+  // const handlePhoto = (e) => {
+  //   const file = e.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreviewSource(reader.result);
+  //   }
+  // }
+
+  // const handleTag = (e) => {
+  //   setTag(e.target.value);
+  // }
+
+  // const handleSubmitt = (e) => {
+  //   console.log('heyyyyy got in submitt')
+  //   e.preventDefault()
+
+  //   axios.get(`/api/dummy/${tag}`)
+  //     .then(response => {
+  //       console.log('tag search response front end ', response.data)
+  //     })
+  //     .catch(err => {
+  //       console.log('oh no ', err)
+  //     })
+
+  //   handleClosee();
+  // }
+
+  // const handleClose = () => {
+  //   setShow(false);
+  //   setPreviewSource('');
+  // }
+  // const handleShow = () => setShow(true);
+
+  // const handleClosee = () => {
+  //   setShoww(false);
+  //   // setPreviewSource('');
+  // }
+  // const handleShoww = () => setShoww(true);
+
 
   return (
     <div className="myContainer">
@@ -134,6 +214,8 @@ export default function MainContainer() {
         <Container className="header">
           {/* <Profile {...user} /> */}
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
+          {/* <Button onClick={handleShow}>DUMMY UPLOAD</Button>
+          <Button onClick={handleShoww} >Search By Tag Dummy</Button> */}
         </Container>
         <EventsFeed
           deleteEvent ={deleteEvent}
@@ -143,6 +225,52 @@ export default function MainContainer() {
           updatePhoto={handlePhotoUpdate}
         />
       </div>
+      {/* <Modal show={show} onHide={handleClose} animation={true}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Photo</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Form>
+
+              <Form.Group controlId="formEventPhoto">
+                <Form.Label>Event Photo</Form.Label>
+                <Form.Control name='photo' type='file' onChange={handlePhoto}/>
+              </Form.Group>
+
+              {previewSource && (
+                <img src={previewSource} alt="chosen" style={{height: '300px'}} />
+              )}
+
+              <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+        <Modal show={showw} onHide={handleClosee} animation={true}>
+          <Modal.Header closeButton>
+            <Modal.Title>Get Photo With Tag</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Form>
+
+              <Form.Group controlId="formEventPhoto">
+                <Form.Label>Use tag</Form.Label>
+                <Form.Control name='dummyget' type='text' onChange={handleTag}/>
+              </Form.Group>
+
+              {previewSource && (
+                <img src={previewSource} alt="chosen" style={{height: '300px'}} />
+              )}
+
+              <Button variant="primary" type="submit" onClick={(e) => { handleSubmitt(e) }}>
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal> */}
     </div>
   );
 }
