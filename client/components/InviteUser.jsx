@@ -25,9 +25,7 @@ export default function InviteUser(props) {
 
   return (
     <div className='inviteFriendContainer'>
-      <span className='inviteFriendPhoto'>Photo  </span>
-      <span className='inviteFriendFirstName'>{props.user.firstname}</span>
-      <span className='inviteFriendLastName'>{props.user.lastname}</span>
+      <span className='inviteFriendName'>{props.user.firstname} {props.user.lastname}</span>
       <span className='inviteFriendButton'>
         {!response &&
           <Button variant="primary" onClick={handleClickInvite}>Invite</Button>

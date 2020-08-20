@@ -91,7 +91,7 @@ export default function CreateEvent({ addEvent }) {
     setShow(true)
     setInvite(false)
   };
-  
+
 
 
   return (
@@ -130,12 +130,15 @@ export default function CreateEvent({ addEvent }) {
             </Form.Group>
 
             {previewSource && (
-              <img src={previewSource} alt="chosen" style={{height: '300px'}} />
+              <div className="photoPreviewContainer">
+                <img src={previewSource} alt="chosen" style={{width: '300px'}} />
+              </div>
             )}
 
             <Form.Group controlId="formEventDescription">
               <Form.Label>Start Date & Time</Form.Label>
               <DateTimePicker
+                className="timePicker"
                 onChange={onChange}
                 value={dateTime}
               />
@@ -144,7 +147,7 @@ export default function CreateEvent({ addEvent }) {
             <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>
               Submit
             </Button>
-            
+
 
           </Form>
         </Modal.Body>
