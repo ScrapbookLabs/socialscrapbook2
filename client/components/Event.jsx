@@ -14,6 +14,7 @@ export default function Event(props) {
       <b className="hr anim"></b>
       <div className="event">
         <Container>
+        <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
