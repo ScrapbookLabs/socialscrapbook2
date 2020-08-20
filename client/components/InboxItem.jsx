@@ -11,6 +11,7 @@ export default function InboxItem(props) {
       username, eventtitle
     })
     setshowItem(false)
+    alert('You are attending!')
   }
 
   const handleClickDecline = (eventtitle) => {
@@ -18,6 +19,7 @@ export default function InboxItem(props) {
       username, eventtitle
     })
     setshowItem(false)
+    alert('You have declined invitation')
   }
     
   return (
@@ -26,7 +28,7 @@ export default function InboxItem(props) {
         <div key={props.i} className='inboxItem'>
           <div className='inboxDetails'>
             {/* <span className='inboxItemPhoto'>add event photo </span> */}
-            <span className='inboxItemEventNameTitle'>Event Name: </span>
+            <span className='inboxItemEventNameTitle'>Event Name:</span>
             <span className='inboxItemEventName'>{props.el}</span>
           </div>
           <div className='inboxButtons'>
@@ -37,9 +39,8 @@ export default function InboxItem(props) {
               <button className="inboxSubmitDecline" onClick={()=>{handleClickDecline(props.el)}}>Decline</button>
             </span>
           </div>
-      </div>
-    }
-  </div>
-)
-
+        </div>
+      }
+    </div>
+  )
 }
