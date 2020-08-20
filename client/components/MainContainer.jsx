@@ -67,7 +67,8 @@ export default function MainContainer() {
       })
   }
 
-  function handleDeletePhoto(eventtitle) {
+  // handles delete 
+  function handleDeletePhoto(eventtitle, url) {
     const lessEvents = events.map(event => {
       if (event.eventtitle === eventtitle) {
         return {...event, eventpic: null}
@@ -78,11 +79,10 @@ export default function MainContainer() {
 
     const response = axios.delete('/api/photo', {
       data: {
-        eventtitle: eventtitle,
+        eventtitle,
+        url,
       }
     });
-
-    console.log('main container response', response)
 
     setEvents(lessEvents);
   }
@@ -108,6 +108,24 @@ export default function MainContainer() {
     } 
   }
 
+  // handles updating photos to existing events
+  function handlePhotoUpdate(eventtitle, source) {
+    axios.put('/api/photo', {
+      eventtitle,
+      eventpic: source
+    })
+      .then(data => {
+        const insertion = data.data.event;
+        const updatedEvents = events.map(event => {
+          if (event.eventtitle === eventtitle) {
+            return insertion
+          } else return event
+        });
+
+        setEvents(updatedEvents);
+      });
+  }
+
 
   return (
     <div className="myContainer">
@@ -122,6 +140,7 @@ export default function MainContainer() {
           events={events}
           userUpdate={handleUserPageChange}
           deletePhoto={handleDeletePhoto}
+          updatePhoto={handlePhotoUpdate}
         />
       </div>
     </div>
