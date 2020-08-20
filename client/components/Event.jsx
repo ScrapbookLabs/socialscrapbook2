@@ -60,9 +60,9 @@ export default function Event(props) {
       <div className="event">
         <Container>
           <div className="eventButtons">
-            <Button variant="primary" onClick={handleClickInvite}>Invite Friends!</Button>
-            <Button variant="outline-primary" className="deleteButton" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</Button>
             <EditEvent  {...props} events = {props.events} editEvent = {props.editEvent}/>
+            <Button variant="primary" onClick={handleClickInvite}>Invite Friends!</Button>
+            <Button variant="outline-primary" className="deleteButton" onClick={()=> props.deleteEvent(props.eventid)}>Delete</Button>
           </div>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>

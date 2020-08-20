@@ -121,10 +121,9 @@ body {
 
 .eventButtons {
   padding: 1em;
-}
-
-.deleteButton {
-  float: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .jumbotron {

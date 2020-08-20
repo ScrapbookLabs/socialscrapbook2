@@ -4,7 +4,7 @@ const EditEvent = (props) => {
     const [eventtitle, setEventTitle] = useState(props.eventtitle)
     const [eventdetails, setEventDetails] = useState(props.eventdetails)
     const [eventlocation, setEventLocation] = useState(props.eventlocation)
- 
+
     const updateEvent = async(e) => {
         e.preventDefault()
         try {
@@ -14,19 +14,19 @@ const EditEvent = (props) => {
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify(body)
             }
-          
+
             )
             props.editEvent(eventtitle, eventdetails, eventlocation, props.eventtitle)
-        
+
         } catch (err) {
             console.error(err.message)
         }
     }
 
     return (<Fragment>
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#id${props.eventid}`}>
-            
-  Edit 
+        <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target={`#id${props.eventid}`}>
+
+  Edit
 </button>
 
 
@@ -34,11 +34,11 @@ const EditEvent = (props) => {
   <div className="modal-dialog">
     <div className="modal-content">
 
-  
+
       <div className="modal-header">
         <h4 className="modal-title">Edit Event</h4>
         <button type="button" className="close" data-dismiss="modal" onClick= {()=> {setEventTitle(props.eventtitle); setEventDetails(props.eventdetails); setEventLocation(props.eventlocation)}} >&times;</button>
-        
+
       </div>
 
 
@@ -52,10 +52,9 @@ const EditEvent = (props) => {
 
       </div>
 
- 
+
       <div className="modal-footer">
-      <button type="button" className="btn btn-danger" data-dismiss="modal" onClick = {e => updateEvent(e)}>Edit Event (Modal)</button>
-        <button type="button" className="btn btn-danger" data-dismiss="modal"  >Close</button>
+      <button type="button" className="btn btn-primary" data-dismiss="modal" onClick = {e => updateEvent(e)}>Edit Event</button>
       </div>
 
     </div>
