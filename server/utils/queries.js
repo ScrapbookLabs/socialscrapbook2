@@ -118,8 +118,6 @@ RETURNING eventid
 ;
 `;
 
-// SELECT * FROM invitelist;
-// SELECT * FROM usersandevents;
 
 
 // DELETE SPECIFIC EVENTPIC URL FROM EVENT

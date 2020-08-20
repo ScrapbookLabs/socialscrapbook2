@@ -17,30 +17,9 @@ export default function InviteUser(props) {
   queryData.eventdetails = props.event.eventdetails
   queryData.eventlocation = props.event.eventlocation
 
-  // "uselessid" serial PRIMARY KEY,
-  //   "userid" bigint NOT NULL,
-  //   "username" varchar NOT NULL,
-  //   "eventid" bigint NOT NULL,
-  //   "eventtitle" varchar NOT NULL,
-  //   "eventdate" varchar NOT NULL,
-  //   "eventstarttime" varchar NOT NULL,
-  //   "eventendtime" varchar NOT NULL,
-  //   "eventdetails" varchar NOT NULL,
-  //   "eventlocation" varchar NOT NULL,
-
   const handleClickInvite = () => {
-    // have userid and username
-    console.log('works')
     console.log(queryData)
     setResponse(true)
-
-    // fetch('/api/invite', {
-    //   method: 'POST',
-    //   body: JSON.stringify(queryData),
-    //   headers: { 
-    //     'Content-Type': 'application/json' 
-    //   }
-    // })
     axios.post('/api/invite', {
       queryData
     })

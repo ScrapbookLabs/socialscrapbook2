@@ -31,16 +31,6 @@ inviteController.newInvite = (req, res, next) => {
     })
 } 
 
-// inviteController.InviteList = (req, res, next) => {
-//   let {username} = req.body
-//   let values = [username];
-//   db.query(addInvite, values)
-//     .then((data)=>{
-//       console.log(data)
-//       console.log('adding to invite table working')
-//     })
-// } 
-
 inviteController.inviteListGet = (req, res, next) => {
   let {userid} = req.body
   let values = [userid];

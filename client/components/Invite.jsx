@@ -22,11 +22,6 @@ export default function Invite(props) {
         }))
       })
   }, []);
-  
-  const handleClickInvite = () => {
-    // have userid and username
-    console.log('works')
-  }
 
   return (
     <div>
