@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import Invite from './Invite.jsx'
+import EditEvent from "./EditEvent.jsx"
 
 export default function Event(props) {
 
@@ -50,6 +51,7 @@ export default function Event(props) {
         <Container>
           <button onClick={handleClickInvite}>Invite Friends</button>
           <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
+          <EditEvent  {...props} events = {props.events} editEvent = {props.editEvent}/>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>

@@ -390,6 +390,57 @@ eventController.getAttendeesOneEvent = (req, res, next) => {
     })
 }
 
+//Update a post from userandevents
+
+eventController.updateUsersAndEvents = (req, res, next) => {
+  let values = Number(req.params.id)
+  // values = [values]
+  //putting values first inside queryValues
+  console.log("this is your value:" + values)
+  const updateUsersAndEvents = queries.updateUsersAndEvents
+  console.log("this is your updateUsersAndEvents:"+ updateUsersAndEvents)
+  let { eventtitle,  eventdetails, eventlocation, } = req.body;
+  const queryValues = [eventtitle, eventdetails, eventlocation, values ];
+  console.log("this is your queryValues:" + queryValues)
+  db.query(updateUsersAndEvents, queryValues)
+  .then(data => {
+    console.log('table has been updated: ', data);
+    return next();
+  })
+  .catch(err => {
+    console.log(err)
+    return next({
+      log: `Error occurred with queries.updateUsersAndEvents OR eventController.updateUsersAndEvents middleware: ${err}`,
+      message: { err: "An error occured within request to update userandevent." },
+    });
+  })
+}
+
+//Update a post from events Table
+eventController.updateEvents = (req, res, next) => {
+  let values = Number(req.params.id)
+  // values = [values]
+  //putting values first inside queryValues
+  console.log("this is your value:" + values)
+  const updateEvents = queries.updateEvents
+  console.log("this is your updateEvents:"+ updateEvents)
+  let { eventtitle,  eventdetails, eventlocation, } = req.body;
+  const queryValues = [eventtitle, eventdetails, eventlocation, values ];
+  console.log("this is your queryValues:" + queryValues)
+  db.query(updateEvents, queryValues)
+  .then(data => {
+    console.log('table has been updated: ', data);
+    return next();
+  })
+  .catch(err => {
+    console.log(err)
+    return next({
+      log: `Error occurred with queries.updateEvents OR eventController.updateEvents middleware: ${err}`,
+      message: { err: "An error occured within request to updateEvent." },
+    });
+  })
+}
+
 
 
 module.exports = eventController;

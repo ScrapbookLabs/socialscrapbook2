@@ -1,92 +1,48 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import InboxItem from './InboxItem.jsx'
 
 export default function Inbox(props) {
   const {username, userid} = props.user
   
   const [inviteData, setInviteData] = useState([]);
-
-  // "eventsFetchRes" is dummy for 'get' fetch to the pending events table 
-  const eventsFetchRes = ['event1', 'event2', 'event3']
-  
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/inviteListGet', {
-      method: 'POST',
-      body: JSON.stringify({userid: userid}),
-      headers: { 
-        'Content-Type': 'application/json' 
-      }
+    axios.post('/api/inviteListGet', {
+      userid: userid
     })
-      .then((data)=>{
-        return data.json()
-      })
-      .then((data)=>{
+      .then((res)=>{
         console.log('response from InviteListGet')
-        console.log(data.invites)
-        const response = data.invites;
+        console.log(res.data.invites)
+        const response = res.data.invites;
         const eventNames = [];
         response.forEach((el)=>{
           eventNames.push(el.eventtitle)
         })
-        setInviteData(eventNames)
+        setLoading(false)
+        setInviteData(eventNames);
       })
   }, []);
-
-
-  const handleClickAttend = () => {
-    console.log(username)
-    // add event to their event
-    // remove entry from invitelist
-
-    // fetch('/api/inviteListRem', {
-    //   method: 'POST',
-    //   body: JSON.stringify({userid: userid}),
-    //   headers: { 
-    //     'Content-Type': 'application/json' 
-    //   }
-    // })
-  }
-
-  const handleClickDecline = () => {
-    // remove entry from invitelist
-    // fetch('/api/inviteListRem', {
-    //   method: 'POST',
-    //   body: JSON.stringify({userid: userid}),
-    //   headers: { 
-    //     'Content-Type': 'application/json' 
-    //   }
-    // })
-  }
     
-  if (!eventsFetchRes) {
+  if (loading) {
     return (
-      <div>
-        There are no pending events
+      <div className='inboxContainer'>
+        Loading...
       </div>
     )
   } else {
     const eventList = inviteData.map((el, i)=>{
       return (
-        <div key={i} className='inboxItem'>
-          <div className='inboxDetails'>
-            {/* <span className='inboxItemPhoto'>add event photo </span> */}
-            <span className='inboxItemEventNameTitle'>Event Name: </span>
-            <span className='inboxItemEventName'>{el}</span>
-          </div>
-          <div className='inboxButtons'>
-            <span>
-              <button className="inboxSubmitAttend" onClick={handleClickAttend}>Attend</button>
-            </span>
-            <span>
-              <button className="inboxSubmitDecline" onClick={handleClickDecline}>Decline</button>
-            </span>
-          </div>
-        </div>
+        <InboxItem key={i} username={username} userid={userid} el={el} i={i}/>
       )
     })
     return (
-      <div id='inboxContainer'>
-        {eventList}
+      <div className='inboxContainer'>
+        {inviteData[0] && eventList}
+        {!inviteData[0] && 
+          <div>There are no pending invitations</div>
+        }
       </div>
     )
   }

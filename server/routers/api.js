@@ -160,6 +160,15 @@ router.post('/invite',
   (req, res) =>{
     res.status(202)
 })
+
+router.post('/inviteAttend', inviteController.getDatafromInvite, inviteController.addInvitetoEvents, inviteController.removeFromInvite, (req, res) =>{
+  res.status(202)
+})
+
+router.post('/inviteDecline', inviteController.removeFromInvite, (req, res) =>{
+  res.status(202)
+})
+
 //DELETE an event
 router.delete('/events/:id',
 
@@ -167,6 +176,17 @@ router.delete('/events/:id',
   eventController.deleteEvent,
   (req,res) =>{
     return res.status(200).json("User has been deleted")
+  }
+)
+
+//update
+
+router.put('/events/:id',
+  eventController.updateUsersAndEvents,
+  eventController.updateEvents,
+  eventController.allEvents,
+  (req,res) => {
+    return res.status(200).json("Events has been updated")
   }
 )
 

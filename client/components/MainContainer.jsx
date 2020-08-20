@@ -126,6 +126,19 @@ export default function MainContainer() {
       });
   }
 
+  //changes state once update has occured
+  function handleEditEvent (eventtitle, eventdetails, eventlocation, oldeventtitle){
+    const editEvent = events.map(event => {
+      if (event.eventtitle === oldeventtitle) {
+        return {...event,  eventtitle: eventtitle, eventdetails:eventdetails, eventlocation: eventlocation}
+      } else {
+        return event;
+      }
+    });
+
+    setEvents(editEvent);
+  }
+
 
   return (
     <div className="myContainer">
@@ -138,6 +151,7 @@ export default function MainContainer() {
         <EventsFeed
           deleteEvent ={deleteEvent}
           events={events}
+          editEvent = {handleEditEvent}
           userUpdate={handleUserPageChange}
           deletePhoto={handleDeletePhoto}
           updatePhoto={handlePhotoUpdate}
