@@ -63,18 +63,15 @@ eventController.getAllAttendees = async (req, res, next) => {
 }
 
 eventController.createEvent = (req, res, next) => {
-
   const { userid, username } = res.locals.allUserInfo;
-
-  const queryString = queries.createEvent;
-
   let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
   let photoUrl = res.locals.photoUrl;
-  console.log('eventController.createEvent ', req.body);
+
+  const queryString = queries.createEvent;
   const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}", photoUrl];
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('>>> eventController.createEvent DATA ', data);
+      // console.log('>>> eventController.createEvent DATA ', data);
       res.locals.newEvent = data.rows[0];
       return next();
     })
@@ -88,7 +85,7 @@ eventController.createEvent = (req, res, next) => {
 };
 
 eventController.addNewEventToJoinTable = (req, res, next) => {
-  console.log('eventController.addNewEventToJoinTable')
+  // console.log('eventController.addNewEventToJoinTable')
   const queryString = queries.addNewEventToJoinTable;
   const queryValues = [res.locals.newEvent.eventid]
   db.query(queryString, queryValues)
@@ -107,7 +104,6 @@ eventController.addNewEventToJoinTable = (req, res, next) => {
 
 eventController.verifyAttendee = (req, res, next) => {
   const title = req.query.eventtitle; // verify with frontend
-
   const { username } = res.locals.allUserInfo
 
   const queryString = queries.selectEventAttendees;
@@ -115,12 +111,12 @@ eventController.verifyAttendee = (req, res, next) => {
 
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('data: ', data);
+      // console.log('data: ', data);
       const attendees = [];
       for (const attendeeObj of data.rows) {
         attendees.push(attendeeObj.username);
       }
-      console.log(attendees);
+      // console.log(attendees);
       if (attendees.includes(username)) {
         return next({
           log: `Error: User is already an attendee`,
@@ -148,7 +144,6 @@ eventController.verifyAttendee = (req, res, next) => {
 //  (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
 eventController.addAttendee = (req, res, next) => {
   const title = req.query.eventtitle
-
   const { userid, username } = res.locals.allUserInfo
   // eventsID is saved in res.locals.eventID
 
@@ -167,7 +162,7 @@ eventController.addAttendee = (req, res, next) => {
 
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('data from addAttendee: ', data);
+      // console.log('data from addAttendee: ', data);
       return next();
     })
     .catch(err => {
@@ -196,7 +191,7 @@ eventController.allEvents = (req, res, next) => {
             e.attendees = attendees;
             return e;
           })
-          console.log('all events info ', mergedTable)
+          // console.log('all events info ', mergedTable)
           res.locals.allEventsInfo = mergedTable
           return next();
         })
@@ -220,7 +215,7 @@ eventController.getUserDetail = (req, res, next) => {
   })
 
   const allUsernames = res.locals.attendees.flat(Infinity);
-  console.log('FLATTENED USERNAMES', allUsernames);
+  // console.log('FLATTENED USERNAMES', allUsernames);
 
   const queryString = queries.userInfo;
 
@@ -278,14 +273,14 @@ eventController.filterForUser = (req, res, next) => {
 
 //delete
 eventController.deleteUsersAndEvents = (req, res, next) => {
-  console.log("deleteUSER and Events Working")
+  // console.log("deleteUSER and Events Working")
   let values = Number(req.params.id)
   values = [values]
 
   const deleteUsersAndEvents = queries.deleteUsersAndEvents
   db.query(deleteUsersAndEvents, values)
   .then(data => {
-    console.log('table minus deleted event: ', data);
+    // console.log('table minus deleted event: ', data);
     return next();
   })
   .catch(err => {
@@ -308,7 +303,7 @@ eventController.deleteEvent = (req, res, next) => {
 
   db.query(deleteEvent,values)
   .then(data => {
-    console.log('table minus deleted event: ', data);
+    // console.log('table minus deleted event: ', data);
     return next();
   })
   .catch(err => {
@@ -330,7 +325,7 @@ eventController.updatePhoto = (req, res, next) => {
 
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('response from update photo ', data)
+      // console.log('response from update photo ', data)
       return next();
     })
     .catch(err => {
@@ -351,7 +346,7 @@ eventController.getOneEvent = (req, res, next) => {
 
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('get one event response ', data);
+      // console.log('get one event response ', data);
       if (data.rows[0]) {
         res.locals.event = data.rows[0];
       } else {

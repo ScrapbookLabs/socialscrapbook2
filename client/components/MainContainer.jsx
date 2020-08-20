@@ -109,15 +109,12 @@ export default function MainContainer() {
 
   // handles updating photos to existing events
   function handlePhotoUpdate(eventtitle, source) {
-    console.log('before put ', eventtitle)
     axios.put('/api/photo', {
       eventtitle,
       eventpic: source
     })
       .then(data => {
-        console.log('should be newly updated event ', data);
         const insertion = data.data.event;
-        
         const updatedEvents = events.map(event => {
           if (event.eventtitle === eventtitle) {
             return insertion

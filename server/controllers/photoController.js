@@ -9,10 +9,8 @@ photoController.uploadPhoto = (req, res, next) => {
   try {
     const fileStr = req.body.eventpic;
     const { eventtitle } = req.body;
-    console.log(req.body.eventtitle)
 
     cloudinary.uploader.upload(fileStr, { upload_preset: 'social_scrapbook_2', public_id: `${eventtitle}`}, function(err, result) {
-      console.log('cloud upload result ', result)
       res.locals.photoUrl = result.url;
       return next();
     });
@@ -24,7 +22,6 @@ photoController.uploadPhoto = (req, res, next) => {
 
 photoController.getPhoto = (req, res, next) => {
   const { eventtitle } = req.body;
-  console.log(eventtitle);
   cloudinary.search
     .expression(`public_id: social_scrapbook_2/${eventtitle}`)
     .execute()
@@ -40,11 +37,8 @@ photoController.getPhoto = (req, res, next) => {
 
 photoController.deleteCloudinary = async (req, res, next) => {
   const { eventtitle } = req.body;
-  console.log('make sure title in api ', eventtitle)
 
   const response = await cloudinary.uploader.destroy(`social_scrapbook_2/${eventtitle}`);
-
-  console.log('delete cloudinary api router response ', response)
 
   res.locals.cloudresponse = response;
   return next();
@@ -57,7 +51,6 @@ photoController.deleteFromSQL = (req, res, next) => {
 
   db.query(queryString, queryValues)
     .then(data => {
-      console.log('response from success SQL delete ', data)
       return next();
     })
     .catch(err => {
