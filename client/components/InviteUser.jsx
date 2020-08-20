@@ -5,8 +5,8 @@ import axios from 'axios';
 export default function InviteUser(props) {
   
   const queryData = {};
-  queryData.userid = props.users.userid
-  queryData.username = props.users.username
+  queryData.userid = props.user.userid
+  queryData.username = props.user.username
   queryData.eventid = props.event.eventid
   queryData.eventtitle = props.event.eventtitle
   queryData.eventdate = props.event.eventdate
@@ -14,6 +14,7 @@ export default function InviteUser(props) {
   queryData.eventendtime = props.event.eventendtime
   queryData.eventdetails = props.event.eventdetails
   queryData.eventlocation = props.event.eventlocation
+
 
   // "uselessid" serial PRIMARY KEY,
   //   "userid" bigint NOT NULL,
@@ -29,8 +30,8 @@ export default function InviteUser(props) {
   const handleClickInvite = () => {
     // have userid and username
     console.log('works')
-    console.log(props.users)
-    console.log(props.event)
+    console.log(queryData)
+
     fetch('/api/invite', {
       method: 'POST',
       body: JSON.stringify(queryData),

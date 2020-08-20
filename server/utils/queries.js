@@ -74,15 +74,15 @@ SELECT * FROM users
 
 // ADD ENTRY TO INVITE TABLE
 queries.addInvite = `
-INSERT INTO invite
+INSERT INTO invitelist
   (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
 VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
 ;
 `;
 
 
+// CREATE TABLE newInvite AS TABLE usersandevents WITH NO DATA;
 
-
-
+// SELECT * FROM invitelist;
 
 module.exports = queries;
