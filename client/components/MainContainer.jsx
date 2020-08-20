@@ -148,63 +148,63 @@ export default function MainContainer() {
 
 
 
-  const [show, setShow] = useState(false);
-  const [showw, setShoww] = useState(false);
-  const [tag, setTag] = useState('');
-  const [previewSource, setPreviewSource] = useState('');
+  // const [show, setShow] = useState(false);
+  // const [showw, setShoww] = useState(false);
+  // const [tag, setTag] = useState('');
+  // const [previewSource, setPreviewSource] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // DUMMY
-    const faketitle = 'Here';
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   // DUMMY
+  //   const faketitle = 'Here';
 
-    axios.post('/api/dummy', { eventpic: previewSource, eventtitle: faketitle })
-      .then(response => {
-        console.log('response on front end from all back end stuff ', response.data)
-      })
+  //   axios.post('/api/dummy', { eventpic: previewSource, eventtitle: faketitle })
+  //     .then(response => {
+  //       console.log('response on front end from all back end stuff ', response.data)
+  //     })
     
-    handleClose();
-  };
+  //   handleClose();
+  // };
 
-  const handlePhoto = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    }
-  }
+  // const handlePhoto = (e) => {
+  //   const file = e.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreviewSource(reader.result);
+  //   }
+  // }
 
-  const handleTag = (e) => {
-    setTag(e.target.value);
-  }
+  // const handleTag = (e) => {
+  //   setTag(e.target.value);
+  // }
 
-  const handleSubmitt = (e) => {
-    console.log('heyyyyy got in submitt')
-    e.preventDefault()
+  // const handleSubmitt = (e) => {
+  //   console.log('heyyyyy got in submitt')
+  //   e.preventDefault()
 
-    axios.get(`/api/dummy/${tag}`)
-      .then(response => {
-        console.log('tag search response front end ', response.data)
-      })
-      .catch(err => {
-        console.log('oh no ', err)
-      })
+  //   axios.get(`/api/dummy/${tag}`)
+  //     .then(response => {
+  //       console.log('tag search response front end ', response.data)
+  //     })
+  //     .catch(err => {
+  //       console.log('oh no ', err)
+  //     })
 
-    handleClosee();
-  }
+  //   handleClosee();
+  // }
 
-  const handleClose = () => {
-    setShow(false);
-    setPreviewSource('');
-  }
-  const handleShow = () => setShow(true);
+  // const handleClose = () => {
+  //   setShow(false);
+  //   setPreviewSource('');
+  // }
+  // const handleShow = () => setShow(true);
 
-  const handleClosee = () => {
-    setShoww(false);
-    // setPreviewSource('');
-  }
-  const handleShoww = () => setShoww(true);
+  // const handleClosee = () => {
+  //   setShoww(false);
+  //   // setPreviewSource('');
+  // }
+  // const handleShoww = () => setShoww(true);
 
 
   return (
@@ -225,7 +225,7 @@ export default function MainContainer() {
           updatePhoto={handlePhotoUpdate}
         />
       </div>
-      <Modal show={show} onHide={handleClose} animation={true}>
+      {/* <Modal show={show} onHide={handleClose} animation={true}>
           <Modal.Header closeButton>
             <Modal.Title>Add Photo</Modal.Title>
           </Modal.Header>
@@ -270,7 +270,7 @@ export default function MainContainer() {
               </Button>
             </Form>
           </Modal.Body>
-        </Modal>
+        </Modal> */}
     </div>
   );
 }
