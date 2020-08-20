@@ -162,4 +162,13 @@ router.delete('/events/:id',
 )
 
 
+router.post('/dummy', photoController.uploadDummyPhoto, photoController.addDummyToSQL, (req, res, next) => {
+  return res.status(200).json(res.locals.photoUrl);
+})
+// photoController.getDummyPhotoByTag
+router.get('/dummy/:tag', photoController.getDummyPhotosSQL, (req, res, next) => {
+  return res.status(200).json(res.locals.photoUrl);
+})
+
+
 module.exports = router;

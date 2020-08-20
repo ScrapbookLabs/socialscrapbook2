@@ -137,5 +137,18 @@ SELECT * FROM events
 WHERE eventtitle = $1;
 `;
 
+// ADD PHOTO TO EVENTPHOTOS
+queries.addDummyPhoto = `
+INSERT INTO eventphotos
+  (eventtitle, eventpic)
+VALUES($1, $2);
+`;
+
+// GET PHOTOS FROM EVENTPHOTOS
+queries.getDummyPhotos = `
+SELECT eventpic
+FROM eventphotos
+WHERE eventtitle = $1
+`;
 
 module.exports = queries;
