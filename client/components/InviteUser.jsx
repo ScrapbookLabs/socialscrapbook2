@@ -20,9 +20,7 @@ export default function InviteUser(props) {
   const handleClickInvite = () => {
     console.log(queryData)
     setResponse(true)
-    axios.post('/api/invite', {
-      queryData
-    })
+    axios.post('/api/invite', queryData)
   }
 
   return (
