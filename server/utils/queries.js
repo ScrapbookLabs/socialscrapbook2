@@ -137,6 +137,9 @@ WHERE eventtitle = $1;
 queries.deleteUsersAndEvents = `
 DELETE FROM usersandevents WHERE eventid=$1`
 
+queries.deleteInviteUsersAndEvents = `
+DELETE FROM invitelist WHERE eventid=$1`
+
 //DELETE FROM EVENTS
  queries.deleteEvent = `
  DELETE FROM events WHERE eventid=$1`

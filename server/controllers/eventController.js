@@ -301,6 +301,26 @@ eventController.deleteUsersAndEvents = (req, res, next) => {
   })
 }
 
+eventController.deleteInviteEvent = (req, res, next) => {
+  // console.log("deleteUSER and Events Working")
+  let values = Number(req.params.id)
+  values = [values]
+
+  const deleteInviteUsersAndEvents = queries.deleteInviteUsersAndEvents
+  db.query(deleteInviteUsersAndEvents, values)
+  .then(data => {
+    // console.log('table minus deleted event: ', data);
+    return next();
+  })
+  .catch(err => {
+    console.log(err)
+    return next({
+      log: `Error occurred with queries.deleteUsersEvent OR eventController.deleteUserAndEvent middleware: ${err}`,
+      message: { err: "An error occured within request to delete an event at deleteUsersAndEvents." },
+    });
+  })
+}
+
 
 //DELETE a post from event
 
