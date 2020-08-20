@@ -140,71 +140,18 @@ export default function MainContainer() {
       });
   }
 
-  function addPhoto() {
-    // need
+  //changes state once update has occured
+  function handleEditEvent (eventtitle, eventdetails, eventlocation, ){
+    const editEvent = events.map(event => {
+      if (event.eventtitle === oldeventtitle) {
+        return {...event,  eventtitle: eventtitle, eventdetails:eventdetails, eventlocation: eventlocation, }
+      } else {
+        return event;
+      }
+    });
+
+    setEvents(editEvent);
   }
-
-
-
-
-
-  // const [show, setShow] = useState(false);
-  // const [showw, setShoww] = useState(false);
-  // const [tag, setTag] = useState('');
-  // const [previewSource, setPreviewSource] = useState('');
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   // DUMMY
-  //   const faketitle = 'Here';
-
-  //   axios.post('/api/dummy', { eventpic: previewSource, eventtitle: faketitle })
-  //     .then(response => {
-  //       console.log('response on front end from all back end stuff ', response.data)
-  //     })
-    
-  //   handleClose();
-  // };
-
-  // const handlePhoto = (e) => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setPreviewSource(reader.result);
-  //   }
-  // }
-
-  // const handleTag = (e) => {
-  //   setTag(e.target.value);
-  // }
-
-  // const handleSubmitt = (e) => {
-  //   console.log('heyyyyy got in submitt')
-  //   e.preventDefault()
-
-  //   axios.get(`/api/dummy/${tag}`)
-  //     .then(response => {
-  //       console.log('tag search response front end ', response.data)
-  //     })
-  //     .catch(err => {
-  //       console.log('oh no ', err)
-  //     })
-
-  //   handleClosee();
-  // }
-
-  // const handleClose = () => {
-  //   setShow(false);
-  //   setPreviewSource('');
-  // }
-  // const handleShow = () => setShow(true);
-
-  // const handleClosee = () => {
-  //   setShoww(false);
-  //   // setPreviewSource('');
-  // }
-  // const handleShoww = () => setShoww(true);
 
 
   return (
@@ -220,6 +167,7 @@ export default function MainContainer() {
         <EventsFeed
           deleteEvent ={deleteEvent}
           events={events}
+          editEvent = {handleEditEvent}
           userUpdate={handleUserPageChange}
           deletePhoto={handleDeletePhoto}
           updatePhoto={handlePhotoUpdate}
