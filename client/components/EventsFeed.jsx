@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Event from './Event.jsx';
+import axios from 'axios';
 
 export default function EventsFeed(props) {
   let feedEvents = [];
@@ -9,6 +10,7 @@ export default function EventsFeed(props) {
     feedEvents = props.events.map((event, index) => {
       return <Event
         {...event}
+        deleteEvent = {props.deleteEvent}
         userUpdate={props.userUpdate}
         deletePhoto={props.deletePhoto}
         event={props.events[index]}

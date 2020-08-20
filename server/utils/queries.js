@@ -31,11 +31,11 @@ RETURNING username
 ;
 `;
 
-// QUERY FOR WHEN USER CREATES EVENT 
+// QUERY FOR WHEN USER CREATES EVENT
 queries.createEvent = `
 INSERT INTO events
-  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages)
-VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventpic)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 RETURNING eventid
 ;
 `;
@@ -66,6 +66,7 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
+<<<<<<< HEAD
 // GET ALL USERS
 queries.getAllUsers = `
 SELECT * FROM users
@@ -92,3 +93,19 @@ SELECT * FROM invitelist WHERE userid=$1
 SELECT * FROM invitelist;
 
 module.exports = queries;
+=======
+
+queries.deleteUsersAndEvents = `
+DELETE FROM usersandevents WHERE eventid=$1`
+
+//DELETE FROM EVENTS
+ queries.deleteEvent = `
+ DELETE FROM events WHERE eventid=$1`
+
+ //GET last id# to fill in
+//  queries.getLastID = `
+//  SELECT * FROM events WHERE eventid= (SELECT max(eventid) FROM events)`
+
+
+module.exports = queries;
+>>>>>>> master
