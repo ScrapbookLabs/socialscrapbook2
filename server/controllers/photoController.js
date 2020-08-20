@@ -65,4 +65,7 @@ photoController.deleteFromSQL = (req, res, next) => {
     })
 }
 
+
+
+
 module.exports = photoController;
