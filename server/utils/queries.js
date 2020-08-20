@@ -7,6 +7,7 @@ queries.getAllEvents = `
 SELECT * FROM events
 `;
 
+
 queries.getAttendeeEvents = `
 SELECT u.*, ue.eventid
 FROM usersandevents ue
@@ -157,6 +158,9 @@ queries.getOneEvent = `
 SELECT * FROM events
 WHERE eventtitle = $1;
 `;
+//Update EventPhotos -Darwin
+queries.updateEventPhotos =
+`UPDATE eventphotos SET eventtitle =$1 WHERE eventtitle = $2`
 
 queries.updateUsersAndEvents = 
 `UPDATE usersandevents SET eventtitle =$1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4`
@@ -168,6 +172,29 @@ queries.updateEvents =
 
 
 
+// ADD PHOTO TO EVENTPHOTOS
+queries.addDummyPhoto = `
+INSERT INTO eventphotos
+  (eventtitle, eventpic)
+VALUES($1, $2);
+`;
 
+// GET PHOTOS FROM EVENTPHOTOS
+queries.getDummyPhotos = `
+SELECT eventpic
+FROM eventphotos
+WHERE eventtitle = $1;
+`;
+
+// GET ALL PHOTOS FROM EVENTPHOTOS
+queries.getAllPhotos = `
+SELECT * FROM eventphotos;
+`;
+
+//DELETE SPECIFIC PHOTO FROM EVENTPHOTOS
+queries.deleteSQLPhoto = `
+DELETE FROM eventphotos
+WHERE eventpic = $1;
+`;
 
 module.exports = queries;

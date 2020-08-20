@@ -345,6 +345,8 @@ eventController.updatePhoto = (req, res, next) => {
     })
 }
 
+
+
 // grab specific single event (after update)
 
 eventController.getOneEvent = (req, res, next) => {
@@ -391,6 +393,30 @@ eventController.getAttendeesOneEvent = (req, res, next) => {
 }
 
 //Update a post from userandevents
+
+eventController.updateEventPhotos = (req, res, next) => {
+  // let values = Number(req.params.id)
+  // values = [values]
+  //putting values first inside queryValues
+
+  const updateEventPhotos = queries.updateEventPhotos
+ 
+  let { eventtitle, oldeventtitle } = req.body;
+  console.log(eventtitlem, oldeventtitle)
+  const queryValues = [eventtitle, oldeventtitle ];
+  db.query("these are your updates: " +updateEventPhotos, queryValues)
+  .then(data => {
+    console.log('table has been updated: ', data);
+    return next();
+  })
+  .catch(err => {
+    console.log(err)
+    return next({
+      log: `Error occurred with queries.updateEventPhotos OR eventController.updateEventPhotos middleware: ${err}`,
+      message: { err: "An error occured within request to update EventPhotos." },
+    });
+  })
+}
 
 eventController.updateUsersAndEvents = (req, res, next) => {
   let values = Number(req.params.id)

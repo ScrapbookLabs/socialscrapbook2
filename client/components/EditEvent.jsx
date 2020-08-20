@@ -8,7 +8,7 @@ const EditEvent = (props) => {
     const updateEvent = async(e) => {
         e.preventDefault()
         try {
-            const body = {eventtitle, eventdetails, eventlocation}
+            const body = {eventtitle, eventdetails, eventlocation, }
             const response = await fetch(`api/events/${props.eventid}`, {
                 method:'PUT',
                 headers: {'Content-Type':'application/json'},

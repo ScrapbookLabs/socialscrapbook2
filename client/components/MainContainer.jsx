@@ -127,10 +127,10 @@ export default function MainContainer() {
   }
 
   //changes state once update has occured
-  function handleEditEvent (eventtitle, eventdetails, eventlocation, oldeventtitle){
+  function handleEditEvent (eventtitle, eventdetails, eventlocation, ){
     const editEvent = events.map(event => {
       if (event.eventtitle === oldeventtitle) {
-        return {...event,  eventtitle: eventtitle, eventdetails:eventdetails, eventlocation: eventlocation}
+        return {...event,  eventtitle: eventtitle, eventdetails:eventdetails, eventlocation: eventlocation, }
       } else {
         return event;
       }
