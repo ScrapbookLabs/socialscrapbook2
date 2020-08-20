@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import InboxItem from './InboxItem.jsx'
 
 export default function Inbox(props) {
   const {username, userid} = props.user
@@ -7,9 +8,6 @@ export default function Inbox(props) {
   const [inviteData, setInviteData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [inviteIndexShow, setinviteIndexShow] = useState([]);
-
-
-  
 
   useEffect(() => {
     axios.post('/api/inviteListGet', {
@@ -31,24 +29,24 @@ export default function Inbox(props) {
       })
   }, []);
 
-  const handleClickAttend = (eventtitle, index) => {
-    if (inviteIndexShow[index]) {
-      axios.post('/api/inviteAttend', {
-        username, eventtitle
-      })
-      inviteIndexShow[index] = false;
-      setinviteIndexShow(inviteIndexShow)
-    } else {
-      alert('already clicked')
-    }
+  // const handleClickAttend = (eventtitle, index) => {
+  //   if (inviteIndexShow[index]) {
+  //     axios.post('/api/inviteAttend', {
+  //       username, eventtitle
+  //     })
+  //     inviteIndexShow[index] = false;
+  //     setinviteIndexShow(inviteIndexShow)
+  //   } else {
+  //     alert('already clicked')
+  //   }
     
-  }
+  // }
 
-  const handleClickDecline = (eventtitle, index) => {
-    axios.post('/api/inviteDecline', {
-      username, eventtitle
-    })
-  }
+  // const handleClickDecline = (eventtitle, index) => {
+  //   axios.post('/api/inviteDecline', {
+  //     username, eventtitle
+  //   })
+  // }
     
   if (loading) {
     return (
@@ -59,21 +57,22 @@ export default function Inbox(props) {
   } else {
     const eventList = inviteData.map((el, i)=>{
       return (
-        <div key={i} className='inboxItem'>
-            <div className='inboxDetails'>
-              {/* <span className='inboxItemPhoto'>add event photo </span> */}
-              <span className='inboxItemEventNameTitle'>Event Name: </span>
-              <span className='inboxItemEventName'>{el}</span>
-            </div>
-            <div className='inboxButtons'>
-              <span>
-                <button className="inboxSubmitAttend" onClick={()=>{handleClickAttend(el, i)}}>Attend</button>
-              </span>
-              <span>
-                <button className="inboxSubmitDecline" onClick={()=>{handleClickDecline(el, i)}}>Decline</button>
-              </span>
-            </div>
-        </div>
+        <InboxItem key={i} username={username} userid={userid} el={el} i={i}/>
+        // <div key={i} className='inboxItem'>
+        //     <div className='inboxDetails'>
+        //       {/* <span className='inboxItemPhoto'>add event photo </span> */}
+        //       <span className='inboxItemEventNameTitle'>Event Name: </span>
+        //       <span className='inboxItemEventName'>{el}</span>
+        //     </div>
+        //     <div className='inboxButtons'>
+        //       <span>
+        //         <button className="inboxSubmitAttend" onClick={()=>{handleClickAttend(el, i)}}>Attend</button>
+        //       </span>
+        //       <span>
+        //         <button className="inboxSubmitDecline" onClick={()=>{handleClickDecline(el, i)}}>Decline</button>
+        //       </span>
+        //     </div>
+        // </div>
       )
     })
     return (
