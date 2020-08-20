@@ -165,7 +165,6 @@ WHERE eventtitle = $1;
 queries.updateEventPhotos =
 `UPDATE eventphotos SET eventtitle =$1 WHERE eventtitle = $2`
 
-<<<<<<< HEAD
 queries.updateUsersAndEvents = 
 `UPDATE usersandevents SET eventtitle =$1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4`
 
@@ -174,7 +173,6 @@ queries.updateUsersAndEvents =
 queries.updateEvents = 
 `UPDATE events SET eventtitle = $1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4 `
 
-=======
 // ADD PHOTO TO EVENTPHOTOS
 queries.addDummyPhoto = `
 INSERT INTO eventphotos
@@ -199,7 +197,6 @@ queries.deleteSQLPhoto = `
 DELETE FROM eventphotos
 WHERE eventpic = $1;
 `;
->>>>>>> 34d63bc7abcd511c82d9a6d9d94b2bb3b9eba965
 
 
 // ADD PHOTO TO EVENTPHOTOS
