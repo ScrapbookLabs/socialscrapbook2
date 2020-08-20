@@ -9,6 +9,8 @@ export default function Inbox(props) {
   const [inviteIndexShow, setinviteIndexShow] = useState([]);
 
 
+  
+
   useEffect(() => {
     axios.post('/api/inviteListGet', {
       userid: userid
@@ -29,13 +31,20 @@ export default function Inbox(props) {
       })
   }, []);
 
-  const handleClickAttend = (eventtitle) => {
-    axios.post('/api/inviteAttend', {
-      username, eventtitle
-    })
+  const handleClickAttend = (eventtitle, index) => {
+    if (inviteIndexShow[index]) {
+      axios.post('/api/inviteAttend', {
+        username, eventtitle
+      })
+      inviteIndexShow[index] = false;
+      setinviteIndexShow(inviteIndexShow)
+    } else {
+      alert('already clicked')
+    }
+    
   }
 
-  const handleClickDecline = (eventtitle) => {
+  const handleClickDecline = (eventtitle, index) => {
     axios.post('/api/inviteDecline', {
       username, eventtitle
     })
@@ -51,19 +60,19 @@ export default function Inbox(props) {
     const eventList = inviteData.map((el, i)=>{
       return (
         <div key={i} className='inboxItem'>
-          <div className='inboxDetails'>
-            {/* <span className='inboxItemPhoto'>add event photo </span> */}
-            <span className='inboxItemEventNameTitle'>Event Name: </span>
-            <span className='inboxItemEventName'>{el}</span>
-          </div>
-          <div className='inboxButtons'>
-            <span>
-              <button className="inboxSubmitAttend" onClick={()=>{handleClickAttend(el)}}>Attend</button>
-            </span>
-            <span>
-              <button className="inboxSubmitDecline" onClick={()=>{handleClickDecline(el)}}>Decline</button>
-            </span>
-          </div>
+            <div className='inboxDetails'>
+              {/* <span className='inboxItemPhoto'>add event photo </span> */}
+              <span className='inboxItemEventNameTitle'>Event Name: </span>
+              <span className='inboxItemEventName'>{el}</span>
+            </div>
+            <div className='inboxButtons'>
+              <span>
+                <button className="inboxSubmitAttend" onClick={()=>{handleClickAttend(el, i)}}>Attend</button>
+              </span>
+              <span>
+                <button className="inboxSubmitDecline" onClick={()=>{handleClickDecline(el, i)}}>Decline</button>
+              </span>
+            </div>
         </div>
       )
     })
