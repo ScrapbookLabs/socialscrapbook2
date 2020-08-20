@@ -6,6 +6,10 @@ const { cloudinary } = require('../utils/cloudinary.js');
 const photoController = {};
 
 photoController.uploadPhoto = (req, res, next) => {
+  if (!req.body.eventpic) {
+    return next();
+  }
+
   try {
     const fileStr = req.body.eventpic;
     const { eventtitle } = req.body;
@@ -22,7 +26,6 @@ photoController.uploadPhoto = (req, res, next) => {
 
 photoController.getPhoto = (req, res, next) => {
   const { eventtitle } = req.body;
-  console.log(eventtitle);
   cloudinary.search
     .expression(`public_id: social_scrapbook_2/${eventtitle}`)
     .execute()
@@ -34,6 +37,32 @@ photoController.getPhoto = (req, res, next) => {
       console.log(err);
       return next({err: "Error in photoController.getPhoto"})
     });
+}
+
+photoController.deleteCloudinary = async (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const response = await cloudinary.uploader.destroy(`social_scrapbook_2/${eventtitle}`);
+
+  res.locals.cloudresponse = response;
+  return next();
+}
+
+photoController.deleteFromSQL = (req, res, next) => {
+  const { eventtitle } = req.body;
+  const queryString = queries.deletePhoto;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.deletePhoto OR photoController.deleteFromSQL middleware: ${err}`,
+        message: { err: "An error occured with SQL when retrieving events information." },
+      });
+    })
 }
 
 module.exports = photoController;

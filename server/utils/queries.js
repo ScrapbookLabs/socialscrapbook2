@@ -40,6 +40,15 @@ RETURNING eventid
 ;
 `;
 
+// QUERY FOR WHEN USER CREATES EVENT WITHOUT PHOTO
+queries.createEventWithoutPhoto = `
+INSERT INTO events
+  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventpic)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, NULL)
+RETURNING eventid
+;
+`;
+
 // ADDS ALL CURRENT EVENTS TO USERSANDEVENTS
 queries.addNewEventToJoinTable = `
 INSERT INTO usersandevents (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
@@ -66,6 +75,12 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
+// DELETE SPECIFIC EVENTPIC URL FROM EVENT
+queries.deletePhoto = `
+UPDATE events
+SET eventpic = NULL
+WHERE eventtitle = $1;
+`;
 
 queries.deleteUsersAndEvents = `
 DELETE FROM usersandevents WHERE eventid=$1`
@@ -77,6 +92,19 @@ DELETE FROM usersandevents WHERE eventid=$1`
  //GET last id# to fill in
 //  queries.getLastID = `
 //  SELECT * FROM events WHERE eventid= (SELECT max(eventid) FROM events)`
+
+// UPDATE EVENTPIC IN EVENT
+queries.updatePhoto = `
+UPDATE events
+SET eventpic = $1
+WHERE eventtitle = $2;
+`;
+
+// GET ONE EVENT BY EVENTTITLE
+queries.getOneEvent = `
+SELECT * FROM events
+WHERE eventtitle = $1;
+`;
 
 
 module.exports = queries;

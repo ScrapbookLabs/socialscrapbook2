@@ -2,12 +2,38 @@ import React, { useState, useEffect } from "react";
 import EventAttendees from './EventAttendees.jsx';
 import Content from './Content.jsx';
 import CoverPhoto from './CoverPhoto.jsx';
-import { ListGroup, Container, Row, Jumbotron } from 'react-bootstrap';
+import { ListGroup, Container, Row, Jumbotron, Button, Form, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 
 export default function Event(props) {
+
+  const [show, setShow] = useState(false);
+  const [previewSource, setPreviewSource] = useState('');
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // ADD PHOTO TO EVENT func
+    props.updatePhoto(props.eventtitle, previewSource);
+    handleClose();
+  };
+
+  const handlePhoto = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    }
+  }
+
+  const handleClose = () => {
+    setShow(false);
+    setPreviewSource('');
+  }
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -19,8 +45,10 @@ export default function Event(props) {
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
               <div className="coverPhotoContainer">
-                {props.eventpic && (
-                  <CoverPhoto eventpic={props.eventpic} />
+                {props.eventpic ? (
+                  <CoverPhoto deletePhoto={props.deletePhoto} handleShow={handleShow} eventtitle={props.eventtitle} eventpic={props.eventpic} />
+                ) : (
+                  <Button variant="primary" onClick={handleShow} >Add Photo</Button>
                 )}
               </div>
               <h4>{props.eventdate} - {props.starttime}</h4>
@@ -37,6 +65,30 @@ export default function Event(props) {
           </Container>
           <Content {...props} />
         </Container>
+
+        <Modal show={show} onHide={handleClose} animation={true}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Photo</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Form>
+
+              <Form.Group controlId="formEventPhoto">
+                <Form.Label>Event Photo</Form.Label>
+                <Form.Control name='photo' type='file' onChange={handlePhoto}/>
+              </Form.Group>
+
+              {previewSource && (
+                <img src={previewSource} alt="chosen" style={{height: '300px'}} />
+              )}
+
+              <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
       </div>
     </>
   );

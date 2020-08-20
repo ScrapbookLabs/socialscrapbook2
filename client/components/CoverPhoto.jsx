@@ -15,8 +15,12 @@ export default function CoverPhoto(props) {
     >
       {showHud && (<div>
         <div className="hudBackground">
-          <FontAwesomeIcon className="newPhotoButton" icon={faArrowCircleUp} />
-          <FontAwesomeIcon className="cancelButton" icon={faWindowClose} />
+          <FontAwesomeIcon className="newPhotoButton" icon={faArrowCircleUp} onClick={props.handleShow}/>
+          <FontAwesomeIcon 
+          className="cancelButton" 
+          icon={faWindowClose} 
+          onClick={() => props.deletePhoto(props.eventtitle, props.eventpic)} 
+          />
         </div>
       </div>)}
       <img

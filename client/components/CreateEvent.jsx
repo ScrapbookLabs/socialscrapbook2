@@ -20,8 +20,8 @@ export default function CreateEvent({ addEvent }) {
   const [formData, updateFormData] = React.useState(initialFormData);
   const [dateTime, onChange] = useState(new Date());
   const [show, setShow] = useState(false);
-
   const [previewSource, setPreviewSource] = useState('');
+
   //handles any change tot he form and updates the state
   const handleChange = (e) => {
     updateFormData({
@@ -75,7 +75,10 @@ export default function CreateEvent({ addEvent }) {
   // }
 
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setPreviewSource('');
+  }
   const handleShow = () => setShow(true);
 
 
