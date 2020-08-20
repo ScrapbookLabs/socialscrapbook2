@@ -7,6 +7,7 @@ queries.getAllEvents = `
 SELECT * FROM events
 `;
 
+
 queries.getAttendeeEvents = `
 SELECT u.*, ue.eventid
 FROM usersandevents ue
@@ -161,5 +162,29 @@ SELECT * FROM events
 WHERE eventtitle = $1;
 `;
 
+// ADD PHOTO TO EVENTPHOTOS
+queries.addDummyPhoto = `
+INSERT INTO eventphotos
+  (eventtitle, eventpic)
+VALUES($1, $2);
+`;
+
+// GET PHOTOS FROM EVENTPHOTOS
+queries.getDummyPhotos = `
+SELECT eventpic
+FROM eventphotos
+WHERE eventtitle = $1;
+`;
+
+// GET ALL PHOTOS FROM EVENTPHOTOS
+queries.getAllPhotos = `
+SELECT * FROM eventphotos;
+`;
+
+//DELETE SPECIFIC PHOTO FROM EVENTPHOTOS
+queries.deleteSQLPhoto = `
+DELETE FROM eventphotos
+WHERE eventpic = $1;
+`;
 
 module.exports = queries;
