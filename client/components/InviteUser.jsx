@@ -34,16 +34,16 @@ export default function InviteUser(props) {
     console.log(queryData)
     setResponse(true)
 
-    fetch('/api/invite', {
-      method: 'POST',
-      body: JSON.stringify(queryData),
-      headers: { 
-        'Content-Type': 'application/json' 
-      }
-    })
-    // axios.post('/api/invite', {
-    //   queryData
+    // fetch('/api/invite', {
+    //   method: 'POST',
+    //   body: JSON.stringify(queryData),
+    //   headers: { 
+    //     'Content-Type': 'application/json' 
+    //   }
     // })
+    axios.post('/api/invite', {
+      queryData
+    })
   }
 
   return (

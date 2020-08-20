@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Inbox(props) {
   const {username, userid} = props.user
@@ -6,20 +7,23 @@ export default function Inbox(props) {
   const [inviteData, setInviteData] = useState([]);
 
   useEffect(() => {
-    fetch('/api/inviteListGet', {
-      method: 'POST',
-      body: JSON.stringify({userid: userid}),
-      headers: { 
-        'Content-Type': 'application/json' 
-      }
+    // fetch('/api/inviteListGet', {
+    //   method: 'POST',
+    //   body: JSON.stringify({userid: userid}),
+    //   headers: { 
+    //     'Content-Type': 'application/json' 
+    //   }
+    // })
+    axios.post('/api/inviteListGet', {
+      userid: userid
     })
-      .then((data)=>{
-        return data.json()
-      })
-      .then((data)=>{
+      // .then((data)=>{
+      //   return data.json()
+      // })
+      .then((res)=>{
         console.log('response from InviteListGet')
-        console.log(data.invites)
-        const response = data.invites;
+        console.log(res.data.invites)
+        const response = res.data.invites;
         const eventNames = [];
         response.forEach((el)=>{
           eventNames.push(el.eventtitle)
@@ -30,22 +34,28 @@ export default function Inbox(props) {
 
 
   const handleClickAttend = (eventtitle) => {
-    fetch('/api/inviteAttend', {
-      method: 'POST',
-      body: JSON.stringify({username, eventtitle}),
-      headers: { 
-        'Content-Type': 'application/json' 
-      }
+    // fetch('/api/inviteAttend', {
+    //   method: 'POST',
+    //   body: JSON.stringify({username, eventtitle}),
+    //   headers: { 
+    //     'Content-Type': 'application/json' 
+    //   }
+    // })
+    axios.post('/api/inviteAttend', {
+      username, eventtitle
     })
   }
 
   const handleClickDecline = (eventtitle) => {
-    fetch('/api/inviteDecline', {
-      method: 'POST',
-      body: JSON.stringify({username, eventtitle}),
-      headers: { 
-        'Content-Type': 'application/json' 
-      }
+    // fetch('/api/inviteDecline', {
+    //   method: 'POST',
+    //   body: JSON.stringify({username, eventtitle}),
+    //   headers: { 
+    //     'Content-Type': 'application/json' 
+    //   }
+    // })
+    axios.post('/api/inviteDecline', {
+      username, eventtitle
     })
   }
     
