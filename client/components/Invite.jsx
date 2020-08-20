@@ -41,9 +41,6 @@ export default function Invite(props) {
             </div>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <button onClick={handleClickClose}>Close</button>
-        </Modal.Footer>
       </Modal>
     </div>
   )

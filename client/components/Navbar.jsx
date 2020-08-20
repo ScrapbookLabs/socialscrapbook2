@@ -7,7 +7,7 @@ import Inbox from './Inbox.jsx'
 
 
 export default function OurNavbar({ loggedIn, profilePhoto, user }) {
-  
+
   // use react hook for state to render <Inbox /> conditionally
   const [inbox, setInbox] = useState(false);
   // change state after button click
@@ -18,7 +18,7 @@ export default function OurNavbar({ loggedIn, profilePhoto, user }) {
 
   return (
   <Navbar expand="lg" className="myNavbar justify-content-between">
-    <Navbar.Brand className="brand" href="#home"><FontAwesomeIcon icon={faFeatherAlt} /> Social Scrapbook </Navbar.Brand>
+    <Navbar.Brand className="brand" href="#home"><FontAwesomeIcon icon={faFeatherAlt} /> Social Scrapbook 2.0 </Navbar.Brand>
     <Nav className="justify-content-end">
       {/* When we're not logged in */}
       {!loggedIn && <Nav.Item>

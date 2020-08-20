@@ -4,7 +4,7 @@ import InboxItem from './InboxItem.jsx'
 
 export default function Inbox(props) {
   const {username, userid} = props.user
-  
+
   const [inviteData, setInviteData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +24,7 @@ export default function Inbox(props) {
         setInviteData(eventNames);
       })
   }, []);
-    
+
   if (loading) {
     return (
       <div className='inboxContainer'>
@@ -40,8 +40,8 @@ export default function Inbox(props) {
     return (
       <div className='inboxContainer'>
         {inviteData[0] && eventList}
-        {!inviteData[0] && 
-          <div>There are no pending invitations</div>
+        {!inviteData[0] &&
+          <div>You have no pending invitations</div>
         }
       </div>
     )

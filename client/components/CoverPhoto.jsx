@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindowClose, faArrowCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { faWindowClose, faArrowCircleUp, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { Button } from 'react-bootstrap';
 
 export default function CoverPhoto(props) {
@@ -28,19 +28,19 @@ export default function CoverPhoto(props) {
       onMouseLeave={() => setShowHud(false)}
     >
       {showHud && (<div>
-        <Button onClick={prevPhoto}>Previous</Button>
         <div className="hudBackground">
           <FontAwesomeIcon className="newPhotoButton" icon={faArrowCircleUp} onClick={props.handleShow}/>
-          <FontAwesomeIcon 
-          className="cancelButton" 
-          icon={faWindowClose} 
+          <FontAwesomeIcon className="leftPhotoButton" icon={faChevronLeft} onClick={prevPhoto}/>
+          <FontAwesomeIcon className="rightPhotoButton" icon={faChevronRight} onClick={nextPhoto}/>
+          <FontAwesomeIcon
+          className="cancelButton"
+          icon={faWindowClose}
           onClick={() => {
             prevPhoto();
             props.deletePhoto(props.eventtitle, photoIndex, props.eventphotos[photoIndex]);
-          }} 
+          }}
           />
         </div>
-        <Button onClick={nextPhoto}>Next</Button>
       </div>)}
       <img
         src={props.eventphotos[photoIndex]}
