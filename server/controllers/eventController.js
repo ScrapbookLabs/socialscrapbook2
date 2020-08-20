@@ -275,4 +275,51 @@ eventController.filterForUser = (req, res, next) => {
   return next();
 }
 
+//delete
+eventController.deleteUsersAndEvents = (req, res, next) => {
+  console.log("deleteUSER and Events Working")
+  let values = Number(req.params.id)
+  values = [values]
+
+  const deleteUsersAndEvents = queries.deleteUsersAndEvents
+  db.query(deleteUsersAndEvents, values)
+  .then(data => {
+    console.log('table minus deleted event: ', data);
+    return next();
+  })
+  .catch(err => {
+    console.log(err)
+    return next({
+      log: `Error occurred with queries.deleteUsersEvent OR eventController.deleteUserAndEvent middleware: ${err}`,
+      message: { err: "An error occured within request to delete an event at deleteUsersAndEvents." },
+    });
+  })
+}
+
+
+//DELETE a post from event
+
+eventController.deleteEvent = (req, res, next) => {
+  let values = Number(req.params.id)
+    values = [values]
+ 
+  const deleteEvent = queries.deleteEvent
+  console.log(typeof values[0])
+
+  db.query(deleteEvent,values)
+  .then(data => {
+    console.log('table minus deleted event: ', data);
+    return next();
+  })
+  .catch(err => {
+    console.log(err)
+    return next({
+      log: `Error occurred with queries.deleteEvent OR eventController.deleteEvent middleware: ${err}`,
+      message: { err: "An error occured within request to delete an event." },
+    });
+  })
+}
+
+
+
 module.exports = eventController;

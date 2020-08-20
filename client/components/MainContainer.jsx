@@ -85,6 +85,28 @@ export default function MainContainer() {
 
     setEvents(lessEvents);
   }
+  // Delete Buttons for individual events
+
+  // function handleDeleteEvent(id){
+  //   const 
+  // }
+
+
+  const deleteEvent = async (id) => {
+    try{
+
+     console.log("THIS is the id youre deleting"+ id)
+      const deleteEvent = await fetch(`api/events/${id}`, {
+        method: "DELETE",
+      })
+      console.log(deleteEvent) 
+      setEvents(events.filter(event => event.eventid !== id))
+    }
+    catch(err){
+     console.error(err.message)
+    } 
+  }
+
 
   return (
     <div className="myContainer">
@@ -95,6 +117,7 @@ export default function MainContainer() {
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
         </Container>
         <EventsFeed
+          deleteEvent ={deleteEvent}
           events={events}
           userUpdate={handleUserPageChange}
           deletePhoto={handleDeletePhoto}
