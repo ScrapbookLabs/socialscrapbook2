@@ -188,6 +188,19 @@ router.delete('/events/:id',
   }
 )
 
+//update
+
+router.put('/events/:id',
+  // eventController.updateEventPhotos, 
+
+  eventController.updateUsersAndEvents,
+  eventController.updateEvents,
+  // eventController.allEvents,
+  (req,res) => {
+    return res.status(200).json("Events has been updated")
+  }
+)
+
 
 router.post('/dummy', 
 photoController.uploadDummyPhoto, 
