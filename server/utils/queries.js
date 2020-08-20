@@ -75,6 +75,37 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
+// GET ALL USERS
+queries.getAllUsers = `
+SELECT * FROM users
+;
+`;
+
+// ADD ENTRY TO INVITE TABLE
+queries.addInvite = `
+INSERT INTO invitelist
+  (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+;
+`;
+
+queries.userInvites = `
+SELECT * FROM invitelist WHERE username=$1
+`;
+
+
+queries.inviteListGet = `
+SELECT * FROM invitelist WHERE userid=$1
+`;
+
+
+queries.userEvents = `
+SELECT * FROM events WHERE userid=$1
+`;
+
+
+// SELECT * FROM invitelist;
+
 // DELETE SPECIFIC EVENTPIC URL FROM EVENT
 queries.deletePhoto = `
 UPDATE events

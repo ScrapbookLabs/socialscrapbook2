@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button, Form, Card } from 'react-bootstrap';
 import regeneratorRuntime from "regenerator-runtime";
+import Invite from "./Invite.jsx";
 
 // import FormData from 'form-data';
 
@@ -20,6 +21,9 @@ export default function CreateEvent({ addEvent }) {
   const [formData, updateFormData] = React.useState(initialFormData);
   const [dateTime, onChange] = useState(new Date());
   const [show, setShow] = useState(false);
+  const [invite, setInvite] = useState(false);
+
+
   const [previewSource, setPreviewSource] = useState('');
 
   //handles any change tot he form and updates the state
@@ -39,6 +43,7 @@ export default function CreateEvent({ addEvent }) {
     // ... submit to API or something
     addEvent({ ...formData, eventdate, eventstarttime, eventpic: previewSource });
     handleClose();
+    setInvite(true)
   };
 
   const handlePhoto = (e) => {
@@ -75,11 +80,18 @@ export default function CreateEvent({ addEvent }) {
   // }
 
 
+
+
+
   const handleClose = () => {
     setShow(false);
     setPreviewSource('');
   }
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true)
+    setInvite(false)
+  };
+  
 
 
   return (
@@ -132,9 +144,12 @@ export default function CreateEvent({ addEvent }) {
             <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>
               Submit
             </Button>
+            
+
           </Form>
         </Modal.Body>
       </Modal>
+      {/* {invite && <Invite />} */}
     </div>
   );
 }

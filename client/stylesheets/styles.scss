@@ -387,3 +387,24 @@ $barsize: 15px;
 .inboxItem {
   display: flex;
 }
+
+#inviteHeader {
+  font-size: 20px;
+}
+
+.inviteFriendFirstName {
+  margin-right: 5px;
+}
+
+.inviteFriendLastName {
+  margin-right: 5px;
+}
+
+.inviteUser {
+  background-color: blue;
+  color: white
+}
+
+.inviteMadeUser {
+  background-color: green;;
+}

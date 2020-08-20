@@ -1,22 +1,61 @@
 import React, { useState, useEffect } from "react";
 
 export default function Inbox(props) {
+  const {username, userid} = props.user
+  
+  const [inviteData, setInviteData] = useState([]);
+
   // "eventsFetchRes" is dummy for 'get' fetch to the pending events table 
   const eventsFetchRes = ['event1', 'event2', 'event3']
-    
-  let eventResponse;
-  const inviteRes = (response) => {
-  // 'post' fetch to database with req.body containing event details and req.body.response = 'response' 
-  }
+  
+
+  useEffect(() => {
+    fetch('/api/inviteListGet', {
+      method: 'POST',
+      body: JSON.stringify({userid: userid}),
+      headers: { 
+        'Content-Type': 'application/json' 
+      }
+    })
+      .then((data)=>{
+        return data.json()
+      })
+      .then((data)=>{
+        console.log('response from InviteListGet')
+        console.log(data.invites)
+        const response = data.invites;
+        const eventNames = [];
+        response.forEach((el)=>{
+          eventNames.push(el.eventtitle)
+        })
+        setInviteData(eventNames)
+      })
+  }, []);
+
 
   const handleClickAttend = () => {
-    eventResponse = 'yes';
-    inviteRes(eventResponse);
+    console.log(username)
+    // add event to their event
+    // remove entry from invitelist
+
+    // fetch('/api/inviteListRem', {
+    //   method: 'POST',
+    //   body: JSON.stringify({userid: userid}),
+    //   headers: { 
+    //     'Content-Type': 'application/json' 
+    //   }
+    // })
   }
 
   const handleClickDecline = () => {
-    eventResponse = 'no';
-    inviteRes(eventResponse);
+    // remove entry from invitelist
+    // fetch('/api/inviteListRem', {
+    //   method: 'POST',
+    //   body: JSON.stringify({userid: userid}),
+    //   headers: { 
+    //     'Content-Type': 'application/json' 
+    //   }
+    // })
   }
     
   if (!eventsFetchRes) {
@@ -26,11 +65,11 @@ export default function Inbox(props) {
       </div>
     )
   } else {
-    const eventList = eventsFetchRes.map((el, i)=>{
+    const eventList = inviteData.map((el, i)=>{
       return (
         <div key={i} className='inboxItem'>
           <div className='inboxDetails'>
-            <span className='inboxItemPhoto'>add event photo </span>
+            {/* <span className='inboxItemPhoto'>add event photo </span> */}
             <span className='inboxItemEventNameTitle'>Event Name: </span>
             <span className='inboxItemEventName'>{el}</span>
           </div>

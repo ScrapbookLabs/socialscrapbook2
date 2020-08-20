@@ -5,6 +5,8 @@ const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
+const inviteController = require('../controllers/inviteController');
+
 const photoController = require('../controllers/photoController');
 
 const { cloudinary } = require('../utils/cloudinary.js');
@@ -137,6 +139,18 @@ router.get('/allphotos', async (req, res, next) => {
   res.status(200).json({ ids: publicIds });
 })
 
+// GET ALL USERS FOR INVITE LIST
+router.post('/inviteListGet', inviteController.inviteListGet, (req, res) =>{
+  res.status(202).json({invites: res.locals.data})
+})
+
+router.get('/invite', inviteController.userList, (req, res) =>{
+  res.status(202).json({users: res.locals.invite})
+})
+
+router.post('/invite', inviteController.newInvite, (req, res) =>{
+  res.status(202)
+})
 //DELETE an event
 router.delete('/events/:id',
 
