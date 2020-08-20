@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faArrowCircleUp } from '@fortawesome/free-solid-svg-icons'
+import { Button } from 'react-bootstrap';
 
 export default function CoverPhoto(props) {
 
@@ -33,13 +34,16 @@ export default function CoverPhoto(props) {
           <FontAwesomeIcon 
           className="cancelButton" 
           icon={faWindowClose} 
-          onClick={() => props.deletePhoto(props.eventtitle, props.eventpic)} 
+          onClick={() => {
+            prevPhoto();
+            props.deletePhoto(props.eventtitle, photoIndex, props.eventphotos[photoIndex]);
+          }} 
           />
         </div>
         <Button onClick={nextPhoto}>Next</Button>
       </div>)}
       <img
-        src={props.eventphoto[photoIndex]}
+        src={props.eventphotos[photoIndex]}
         alt="eventpic"
       />
     </div>

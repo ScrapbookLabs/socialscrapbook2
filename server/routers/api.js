@@ -65,12 +65,13 @@ router.use('/logout', // SWITCH THIS TO POST REQUEST!!
 // CREATE A NEW EVENT
 
 router.post('/create',
-  photoController.uploadPhoto,
+  // photoController.uploadPhoto,
+  photoController.uploadDummyPhoto,
   fileController.verifyUser,
   fileController.getUser,
   eventController.createEvent,
   eventController.addNewEventToJoinTable,
-  eventController.addDummyToSQL,
+  photoController.addDummyToSQL,
   (req, res) => {
     return res.status(200).json({newEvent: res.locals.newEvent, eventpic: res.locals.photoUrl});
   });
@@ -115,15 +116,20 @@ router.get('/photo',
 
 router.delete('/photo', 
   photoController.deleteCloudinary, 
-  photoController.deleteFromSQL, 
+  // photoController.deleteFromSQL, 
+  photoController.deleteFromEventPhotosSQL,
   (req, res, next) => {
-  res.status(200).json({ cloudinary: res.locals.cloudresponse });
+  res.status(200).json({  });
 })
 
 router.put('/photo', 
-photoController.uploadPhoto, 
-eventController.updatePhoto, 
+// photoController.uploadPhoto,
+photoController.uploadDummyPhoto, 
+// eventController.updatePhoto, 
+photoController.addDummyToSQL,
 eventController.getOneEvent, 
+// photoController.getDummyPhotoByTag,
+photoController.getDummyPhotosSQL,
 (req, res, next) => {
   res.status(200).json({ event : res.locals.event })
 })

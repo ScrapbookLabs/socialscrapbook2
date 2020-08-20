@@ -157,4 +157,10 @@ queries.getAllPhotos = `
 SELECT * FROM eventphotos;
 `;
 
+//DELETE SPECIFIC PHOTO FROM EVENTPHOTOS
+queries.deleteSQLPhoto = `
+DELETE FROM eventphotos
+WHERE eventpic = $1;
+`;
+
 module.exports = queries;

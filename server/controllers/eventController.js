@@ -63,6 +63,7 @@ eventController.getAllAttendees = async (req, res, next) => {
 }
 
 eventController.createEvent = (req, res, next) => {
+  console.log('create')
   const { userid, username } = res.locals.allUserInfo;
   let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
 

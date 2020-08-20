@@ -68,10 +68,14 @@ export default function MainContainer() {
   }
 
   // handles delete 
-  function handleDeletePhoto(eventtitle, url) {
+  function handleDeletePhoto(eventtitle, index, url) {
     const lessEvents = events.map(event => { // need to change this for albums (immediate delete)
       if (event.eventtitle === eventtitle) {
-        return {...event, eventpic: null}
+        const copy = event.eventphotos.slice();
+        console.log(copy)
+        copy.splice(index, 1)
+        console.log(copy)
+        return {...event, eventphotos: copy}
       } else {
         return event;
       }
@@ -110,6 +114,16 @@ export default function MainContainer() {
 
   // handles updating photos to existing events
   function handlePhotoUpdate(eventtitle, source) {
+    // console.log('got into handle photo update main')
+    // const updatedEvents = events.map(event => {
+    //   if (event.eventtitle === eventtitle) {
+    //     event.eventphotos.push(source);
+    //   } else return event
+    // });
+
+    // setEvents(updatedEvents);
+
+
     axios.put('/api/photo', {
       eventtitle,
       eventpic: source
@@ -126,6 +140,10 @@ export default function MainContainer() {
       });
   }
 
+  function addPhoto() {
+    // need
+  }
+
 
 
 
@@ -138,7 +156,7 @@ export default function MainContainer() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // DUMMY
-    const faketitle = 'aa';
+    const faketitle = 'Here';
 
     axios.post('/api/dummy', { eventpic: previewSource, eventtitle: faketitle })
       .then(response => {
