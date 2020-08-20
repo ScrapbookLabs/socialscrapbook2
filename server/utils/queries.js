@@ -144,5 +144,13 @@ SELECT * FROM events
 WHERE eventtitle = $1;
 `;
 
+queries.updateUsersAndEvents = 
+`UPDATE usersandevents SET eventtitle =$1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4`
+
+//EDIT FROM EVENTS
+
+queries.updateEvents = 
+`UPDATE events SET eventtitle = $1, eventdetails =$2, eventlocation =$3 WHERE eventid = $4 `
+
 
 module.exports = queries;
