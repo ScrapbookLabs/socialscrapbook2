@@ -6,7 +6,7 @@ import { faFeatherAlt, faInbox } from '@fortawesome/free-solid-svg-icons'
 import Inbox from './Inbox.jsx'
 
 
-export default function OurNavbar({ loggedIn, profilePhoto }) {
+export default function OurNavbar({ loggedIn, profilePhoto, user }) {
   
   // use react hook for state to render <Inbox /> conditionally
   const [inbox, setInbox] = useState(false);
@@ -34,7 +34,7 @@ export default function OurNavbar({ loggedIn, profilePhoto }) {
       {loggedIn && <Nav.Item className="logoutButton">
           <a href="/api/logout"><Button className="navButton" variant="outline-primary">Logout</Button></a>
       </Nav.Item>}
-      {inbox && <Inbox />}
+      {inbox && <Inbox user={user} />}
     </Nav>
   </Navbar>
   )

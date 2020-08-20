@@ -10,7 +10,7 @@ export default function Invite(props) {
 
   const handleClickClose = () => setShow(false);
 
-   useEffect(() => {
+  useEffect(() => {
     axios('/api/invite')
       .then((res)=>{
         const resUsers = res.data.users
@@ -21,7 +21,7 @@ export default function Invite(props) {
           )
         }))
       })
-   }, []);
+  }, []);
   
   const handleClickInvite = () => {
     // have userid and username

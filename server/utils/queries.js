@@ -80,8 +80,18 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
 ;
 `;
 
-queries.userEvents = `
+queries.userInvites = `
+SELECT * FROM invitelist WHERE username=$1
+`;
+
+
+queries.inviteListGet = `
 SELECT * FROM invitelist WHERE userid=$1
+`;
+
+
+queries.userEvents = `
+SELECT * FROM events WHERE userid=$1
 `;
 
 
