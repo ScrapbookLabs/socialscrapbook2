@@ -196,6 +196,7 @@ eventController.allEvents = (req, res, next) => {
             e.attendees = attendees;
             return e;
           })
+          console.log('all events info ', mergedTable)
           res.locals.allEventsInfo = mergedTable
           return next();
         })

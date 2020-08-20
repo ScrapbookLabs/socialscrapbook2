@@ -19,7 +19,7 @@ export default function Event(props) {
               <h1>{props.eventtitle}</h1>
               <div className="coverPhotoContainer">
                 {props.eventpic && (
-                  <CoverPhoto eventpic={props.eventpic} />
+                  <CoverPhoto deletePhoto={props.deletePhoto} eventtitle={props.eventtitle} eventpic={props.eventpic} />
                 )}
               </div>
               <h4>{props.eventdate} - {props.starttime}</h4>

@@ -66,4 +66,11 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
+// DELETE SPECIFIC EVENTPIC URL FROM EVENT
+queries.deletePhoto = `
+UPDATE events
+SET eventpic = NULL
+WHERE eventtitle = $1;
+`;
+
 module.exports = queries;

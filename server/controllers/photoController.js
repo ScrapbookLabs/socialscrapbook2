@@ -36,4 +36,34 @@ photoController.getPhoto = (req, res, next) => {
     });
 }
 
+photoController.deleteCloudinary = async (req, res, next) => {
+  const { eventtitle } = req.body;
+  console.log('make sure title in api ', eventtitle)
+
+  const response = await cloudinary.uploader.destroy(`social_scrapbook_2/${eventtitle}`);
+
+  console.log('delete cloudinary api router response ', response)
+
+  res.locals.cloudresponse = response;
+  return next();
+}
+
+photoController.deleteFromSQL = (req, res, next) => {
+  const { eventtitle } = req.body;
+  const queryString = queries.deletePhoto;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log('response from success SQL delete ', data)
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.deletePhoto OR photoController.deleteFromSQL middleware: ${err}`,
+        message: { err: "An error occured with SQL when retrieving events information." },
+      });
+    })
+}
+
 module.exports = photoController;

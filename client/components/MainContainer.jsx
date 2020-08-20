@@ -66,7 +66,9 @@ export default function MainContainer() {
       })
   }
 
-  function handleDeletePhoto(eventtitle) {
+  function handleDeletePhoto(eventtitle, url) {
+
+    console.log('url in main container before delete ', url)
     const lessEvents = events.map(event => {
       if (event.eventtitle === eventtitle) {
         return {...event, eventpic: null}
@@ -77,11 +79,12 @@ export default function MainContainer() {
 
     const response = axios.delete('/api/photo', {
       data: {
-        eventtitle: eventtitle,
+        eventtitle,
+        url,
       }
     });
 
-    console.log('main container response', response)
+    console.log('main container response of cloud delete photo ', response)
 
     setEvents(lessEvents);
   }
