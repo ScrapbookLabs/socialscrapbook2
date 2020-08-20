@@ -10,7 +10,6 @@ import Invite from './Invite.jsx'
 
 export default function Event(props) {
 
-<<<<<<< HEAD
   const [eventpic, setEventpic] = useState('');
   const [inviteView, setInviteView] = useState(false)
 
@@ -27,18 +26,13 @@ export default function Event(props) {
     setInviteView(!inviteView)
   }
 
-=======
->>>>>>> master
   return (
     <>
       <b className="hr anim"></b>
       <div className="event">
         <Container>
-<<<<<<< HEAD
           <button onClick={handleClickInvite}>Invite Friends</button>
-=======
         <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
->>>>>>> master
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>

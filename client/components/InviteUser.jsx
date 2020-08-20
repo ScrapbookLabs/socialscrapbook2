@@ -4,6 +4,8 @@ import axios from 'axios';
 
 export default function InviteUser(props) {
   
+  const [response, setResponse] = useState(false);
+
   const queryData = {};
   queryData.userid = props.user.userid
   queryData.username = props.user.username
@@ -31,6 +33,7 @@ export default function InviteUser(props) {
     // have userid and username
     console.log('works')
     console.log(queryData)
+    setResponse(true)
 
     fetch('/api/invite', {
       method: 'POST',
@@ -47,7 +50,12 @@ export default function InviteUser(props) {
       <span className='inviteFriendFirstName'>{props.user.firstname}</span>
       <span className='inviteFriendLastName'>{props.user.lastname}</span>
       <span className='inviteFriendButton'>
-        <button onClick={handleClickInvite}>Invite</button>
+        {!response && 
+          <button className='inviteUser' onClick={handleClickInvite}>Invite</button>
+        }
+        {response &&
+          <button className='inviteMadeUser'>Invited!</button>
+        }
       </span>
     </div>
   )

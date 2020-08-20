@@ -8,10 +8,6 @@ export default function CoverPhoto(props) {
   const [showHud, setShowHud] = useState(false);
 
   return (
-<<<<<<< HEAD
-    <div className="coverPhoto">
-      {/* <img src={props.eventpic} alt="eventpic" /> */}
-=======
     <div
       className="coverPhoto"
       onMouseEnter={() => setShowHud(true)}
@@ -27,7 +23,6 @@ export default function CoverPhoto(props) {
         src={props.eventpic}
         alt="eventpic"
       />
->>>>>>> master
     </div>
   );
 }

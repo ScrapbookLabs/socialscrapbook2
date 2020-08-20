@@ -66,7 +66,6 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
-<<<<<<< HEAD
 // GET ALL USERS
 queries.getAllUsers = `
 SELECT * FROM users
@@ -86,14 +85,8 @@ SELECT * FROM invitelist WHERE userid=$1
 `;
 
 
+// SELECT * FROM invitelist;
 
-
-// CREATE TABLE newInvite AS TABLE usersandevents WITH NO DATA;
-
-SELECT * FROM invitelist;
-
-module.exports = queries;
-=======
 
 queries.deleteUsersAndEvents = `
 DELETE FROM usersandevents WHERE eventid=$1`
@@ -108,4 +101,3 @@ DELETE FROM usersandevents WHERE eventid=$1`
 
 
 module.exports = queries;
->>>>>>> master
