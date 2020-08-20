@@ -13,6 +13,16 @@ export default function Event(props) {
   const [eventpic, setEventpic] = useState('');
   const [inviteView, setInviteView] = useState(false)
 
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const jsDate = new Date(props.eventdate);
+  const jsHours = jsDate.getHours();
+  const americanHours = jsHours > 12 ? jsHours - 12 : jsHours;
+
+
+  const humanReadableDate = `${days[jsDate.getDay()]}, ${months[jsDate.getMonth()]} ${jsDate.getDate()}`;
+  const americanTime = `${americanHours}:${jsDate.getMinutes()} ${jsHours > 12 ? "PM" : "AM"}`;
+
   const handleClickInvite = () => {
     setInviteView(true)
   }
@@ -48,8 +58,10 @@ export default function Event(props) {
       <b className="hr anim"></b>
       <div className="event">
         <Container>
-          <button onClick={handleClickInvite}>Invite Friends</button>
-          <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
+          <div className="">
+            <Button variant="primary" onClick={handleClickInvite}>Invite Friends</Button>
+            <Button variant="primary" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</Button>
+          </div>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
@@ -60,7 +72,7 @@ export default function Event(props) {
                   <Button variant="primary" onClick={handleShow} >Add Photo</Button>
                 )}
               </div>
-              <h4>{props.eventdate} - {props.starttime}</h4>
+              <h4>{humanReadableDate}</h4>
               <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
               <p>{props.eventdetails}</p>
             </Container>
