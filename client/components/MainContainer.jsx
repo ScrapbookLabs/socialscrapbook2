@@ -3,7 +3,7 @@ import Profile from './Profile.jsx';
 import EventsFeed from './EventsFeed.jsx';
 import Navbar from './Navbar.jsx';
 import axios from 'axios';
-import { Card, Button, Col, Row, Container } from 'react-bootstrap';
+import { Card, Button, Col, Row, Container, Modal } from 'react-bootstrap';
 import AddSearchEvent from './AddSearchEvent.jsx';
 
 // Implemented with hooks throughout
@@ -134,6 +134,7 @@ export default function MainContainer() {
         <Container className="header">
           {/* <Profile {...user} /> */}
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
+          <Button></Button>
         </Container>
         <EventsFeed
           deleteEvent ={deleteEvent}
