@@ -58,9 +58,9 @@ export default function Event(props) {
       <b className="hr anim"></b>
       <div className="event">
         <Container>
-          <div className="">
-            <Button variant="primary" onClick={handleClickInvite}>Invite Friends</Button>
-            <Button variant="primary" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</Button>
+          <div className="eventButtons">
+            <Button variant="primary" onClick={handleClickInvite}>Invite Friends!</Button>
+            <Button variant="outline-primary" className="deleteButton" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</Button>
           </div>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>

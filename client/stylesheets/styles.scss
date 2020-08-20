@@ -93,11 +93,19 @@ body {
 
 .event {
   border: 1px solid gainsboro;
- margin: 1em;
+  margin: 1em;
   padding: 1em;
   box-shadow: 1px 1px 1px 1px gainsboro;
   border-radius: 5px;
   background-color: rgb(250, 250, 250);
+}
+
+.eventButtons {
+  padding: 1em;
+}
+
+.deleteButton {
+  float: right;
 }
 
 .jumbotron {
@@ -128,7 +136,7 @@ body {
 }
 
 .coverPhoto {
-  width: 200px;
+  width: 400px;
 }
 
 .coverPhoto img {
@@ -136,11 +144,21 @@ body {
   height: auto;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity:0
+  }
+  100% {
+    opacity:1;
+  }
+}
+
 .hudBackground {
   background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
   height: 40px;
-  width: 200px;
+  width: 400px;
+  animation: fadeIn 0.1s linear;
 }
 
 .newPhotoButton {
@@ -388,7 +406,7 @@ $barsize: 15px;
   display: flex;
 }
 
-/* InviteUder.jsx */
+/* InviteUser.jsx */
 
 .inviteFriendContainer {
   margin-top: 10px;
