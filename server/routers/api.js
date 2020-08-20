@@ -116,6 +116,14 @@ router.delete('/photo',
   res.status(200).json({ cloudinary: res.locals.cloudresponse });
 })
 
+router.put('/photo', 
+photoController.uploadPhoto, 
+eventController.updatePhoto, 
+eventController.getOneEvent, 
+(req, res, next) => {
+  res.status(200).json({ event : res.locals.event })
+})
+
 // FETCH ALL PHOTOS FROM CLOUDINARY API
 
 router.get('/allphotos', async (req, res, next) => {

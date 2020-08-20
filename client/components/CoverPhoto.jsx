@@ -15,7 +15,7 @@ export default function CoverPhoto(props) {
     >
       {showHud && (<div>
         <div className="hudBackground">
-          <FontAwesomeIcon className="newPhotoButton" icon={faArrowCircleUp} />
+          <FontAwesomeIcon className="newPhotoButton" icon={faArrowCircleUp} onClick={props.handleShow}/>
           <FontAwesomeIcon 
           className="cancelButton" 
           icon={faWindowClose} 

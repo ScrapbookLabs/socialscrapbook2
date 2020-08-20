@@ -305,7 +305,6 @@ eventController.deleteEvent = (req, res, next) => {
     values = [values]
  
   const deleteEvent = queries.deleteEvent
-  console.log(typeof values[0])
 
   db.query(deleteEvent,values)
   .then(data => {
@@ -319,6 +318,53 @@ eventController.deleteEvent = (req, res, next) => {
       message: { err: "An error occured within request to delete an event." },
     });
   })
+}
+
+// Update photo for event
+
+eventController.updatePhoto = (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const queryString = queries.updatePhoto;
+  const queryValues = [res.locals.photoUrl, eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log('response from update photo ', data)
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.updatePhoto OR eventController.updatePhoto middleware: ${err}`,
+        message: { err: "An error occured within request to update a photo in an event." },
+      });
+    })
+}
+
+// grab specific single event (after update)
+
+eventController.getOneEvent = (req, res, next) => {
+  const { eventtitle } = req.body;
+
+  const queryString = queries.getOneEvent;
+  const queryValues = [eventtitle];
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log('get one event response ', data);
+      if (data.rows[0]) {
+        res.locals.event = data.rows[0];
+      } else {
+        console.log('huh, didnt find');
+      }
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.getOneEvent OR eventController.getOneEvent middleware: ${err}`,
+        message: { err: "An error occured within request to get one event from SQL." },
+      });
+    })
 }
 
 

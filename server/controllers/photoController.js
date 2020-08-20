@@ -9,8 +9,10 @@ photoController.uploadPhoto = (req, res, next) => {
   try {
     const fileStr = req.body.eventpic;
     const { eventtitle } = req.body;
+    console.log(req.body.eventtitle)
 
     cloudinary.uploader.upload(fileStr, { upload_preset: 'social_scrapbook_2', public_id: `${eventtitle}`}, function(err, result) {
+      console.log('cloud upload result ', result)
       res.locals.photoUrl = result.url;
       return next();
     });

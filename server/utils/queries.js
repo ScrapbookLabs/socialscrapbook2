@@ -84,5 +84,18 @@ DELETE FROM usersandevents WHERE eventid=$1`
 //  queries.getLastID = `
 //  SELECT * FROM events WHERE eventid= (SELECT max(eventid) FROM events)`
 
+// UPDATE EVENTPIC IN EVENT
+queries.updatePhoto = `
+UPDATE events
+SET eventpic = $1
+WHERE eventtitle = $2;
+`;
+
+// GET ONE EVENT BY EVENTTITLE
+queries.getOneEvent = `
+SELECT * FROM events
+WHERE eventtitle = $1;
+`;
+
 
 module.exports = queries;
