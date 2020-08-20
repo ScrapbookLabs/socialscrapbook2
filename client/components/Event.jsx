@@ -6,9 +6,25 @@ import { ListGroup, Container, Row, Jumbotron, Button, Form, Modal } from 'react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
+import Invite from './Invite.jsx'
 
 export default function Event(props) {
 
+  const [eventpic, setEventpic] = useState('');
+  const [inviteView, setInviteView] = useState(false)
+
+  // useEffect(() => {
+  //   axios.get(`/api/photo?title=${props.eventtitle}`)
+  //     .then((res) => {
+  //       if (res.data) {
+  //         setEventpic(res.data.url);
+  //       }
+  //   })
+  // }, [])
+
+  const handleClickInvite = () => {
+    setInviteView(!inviteView)
+  }
   const [show, setShow] = useState(false);
   const [previewSource, setPreviewSource] = useState('');
 
@@ -40,6 +56,7 @@ export default function Event(props) {
       <b className="hr anim"></b>
       <div className="event">
         <Container>
+          <button onClick={handleClickInvite}>Invite Friends</button>
         <button className= "mb-3" onClick={()=> props.deleteEvent(props.eventid)}>Delete Post</button>
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
@@ -90,6 +107,7 @@ export default function Event(props) {
           </Modal.Body>
         </Modal>
       </div>
+      {inviteView && <Invite event={props.event} />}
     </>
   );
 }

@@ -18,6 +18,7 @@ export default function MainContainer() {
     axios.get(`/api/info?userName=${userName}`)
       .then((res) => {
         let userInfo = {
+          userid: res.data.users.userid,
           username: res.data.users.username,
           firstname: res.data.users.firstname,
           lastname: res.data.users.lastname,
@@ -128,7 +129,7 @@ export default function MainContainer() {
 
   return (
     <div className="myContainer">
-      <Navbar loggedIn={loggedIn} profilePhoto={user.profilephoto}/>
+      <Navbar user={user} loggedIn={loggedIn} profilePhoto={user.profilephoto}/>
       <div className="container">
         <Container className="header">
           {/* <Profile {...user} /> */}
