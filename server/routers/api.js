@@ -181,6 +181,7 @@ router.post('/inviteDecline', inviteController.removeFromInvite, (req, res) =>{
 router.delete('/events/:id',
 
   eventController.deleteUsersAndEvents,
+  eventController.deleteInviteEvent,
   eventController.deleteEvent,
   (req,res) =>{
     return res.status(200).json("User has been deleted")
